@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,13 +18,13 @@ body{
 }
 
 .container{
-    max-width:1400px;
+    max-width:1200px;
     margin:auto;
 }
 
 h1{
     text-align:center;
-    margin-bottom:30px;
+    color:#1f2937;
 }
 
 .grid{
@@ -36,50 +37,36 @@ h1{
     background:white;
     border-radius:15px;
     padding:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .card h2{
     margin-top:0;
+    color:#374151;
 }
 
 .number{
     font-size:28px;
     font-weight:bold;
     color:red;
-    margin:15px 0;
+    margin:10px 0;
 }
 
 .star{
-    font-size:28px;
+    font-size:24px;
     font-weight:bold;
     color:#2563eb;
-    margin:15px 0;
 }
 
 .info{
     color:#666;
-    margin-top:10px;
-}
-
-.btn{
-    display:inline-block;
-    background:#2563eb;
-    color:white;
-    padding:12px 20px;
-    border-radius:10px;
-    text-decoration:none;
-    margin:5px;
-}
-
-.btn:hover{
-    background:#1d4ed8;
+    margin-top:5px;
 }
 
 .footer{
-    margin-top:30px;
     text-align:center;
-    color:#666;
+    margin-top:30px;
+    color:#888;
 }
 
 </style>
@@ -94,70 +81,95 @@ h1{
 
 <div class="grid">
 
+    <!-- 539 -->
     <div class="card">
         <h2>今彩539</h2>
-        <div id="539_numbers" class="number">載入中...</div>
+        <div id="539_numbers" class="number">
+            載入中...
+        </div>
         <div id="539_info" class="info"></div>
     </div>
 
+    <!-- 3星彩 -->
     <div class="card">
         <h2>3星彩</h2>
-        <div id="3star_numbers" class="star">載入中...</div>
+        <div id="3star_numbers" class="star">
+            載入中...
+        </div>
         <div id="3star_info" class="info"></div>
     </div>
 
+    <!-- 威力彩 -->
     <div class="card">
         <h2>威力彩</h2>
-        <div id="power_numbers" class="number">載入中...</div>
+        <div id="power_numbers" class="number">
+            載入中...
+        </div>
         <div id="power_special" class="info"></div>
     </div>
 
+    <!-- 4星彩 -->
     <div class="card">
         <h2>4星彩</h2>
-        <div id="4star_numbers" class="star">載入中...</div>
+        <div id="4star_numbers" class="star">
+            載入中...
+        </div>
         <div id="4star_info" class="info"></div>
     </div>
 
+    <!-- 大樂透 -->
     <div class="card">
         <h2>大樂透</h2>
-        <div id="lotto_numbers" class="number">載入中...</div>
+        <div id="lotto_numbers" class="number">
+            載入中...
+        </div>
         <div id="lotto_special" class="info"></div>
     </div>
 
+    <!-- 系統資訊 -->
     <div class="card">
         <h2>系統資訊</h2>
-        <div id="update_time">資料載入中...</div>
+        <div id="update_time">
+            資料載入中...
+        </div>
     </div>
+<div class="card">
 
-    <div class="card">
-        <h2>報表下載</h2>
+    <h2>報表下載</h2>
 
-        <a href錄.xlsx
+    <p>
+        最新開獎紀錄.xlsx="btn"
+           target="_blank"
+           download>
            📊 Excel報表
         </a>
+    </p>
 
-        <br><br>
-
-        "
+    <p>
+        .docx"
            class="btn"
-           target="_blank">
+           target="_blank"
+           download>
            📄 Word報表
         </a>
-
-    </div>
+    </p>
 
 </div>
 
 <div class="footer">
+
 Tony-1943 台灣彩券分析系統
+
 </div>
 
 </div>
 
 <script>
 
-fetch("data.json?t=" + Date.now())
-.then(r => r.json())
+fetch("data.json?t=" + new Date().getTime())
+
+.then(response => response.json())
+
 .then(data => {
 
     document.getElementById("539_numbers").innerText =
@@ -169,12 +181,14 @@ fetch("data.json?t=" + Date.now())
         " 日期：" +
         data["539"]["date"];
 
+
     document.getElementById("power_numbers").innerText =
         data["power"]["numbers"];
 
     document.getElementById("power_special").innerText =
         "第二區：" +
         data["power"]["special"];
+
 
     document.getElementById("lotto_numbers").innerText =
         data["lotto649"]["numbers"];
@@ -183,11 +197,13 @@ fetch("data.json?t=" + Date.now())
         "特別號：" +
         data["lotto649"]["special"];
 
+
     document.getElementById("3star_numbers").innerText =
         data["3star"]["numbers"];
 
     document.getElementById("3star_info").innerText =
         data["3star"]["date"];
+
 
     document.getElementById("4star_numbers").innerText =
         data["4star"]["numbers"];
@@ -195,19 +211,20 @@ fetch("data.json?t=" + Date.now())
     document.getElementById("4star_info").innerText =
         data["4star"]["date"];
 
+
     document.getElementById("update_time").innerText =
         "最後更新：" +
         data["update_time"];
-})
-.catch(err => {
 
-    console.log(err);
+})
+
+.catch(error => {
+
+    console.error(error);
 
     document.getElementById("update_time").innerText =
-        "讀取資料失敗";
+        "讀取 data.json 失敗";
+
 });
 
 </script>
-
-</body>
-</html>
