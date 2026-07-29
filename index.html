@@ -2,91 +2,87 @@
 <html lang="zh-Hant">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>台灣彩券分析系統</title>
+<title>台灣彩券分析系統</title>
 
-    <style>
+<style>
 
-        body{
-            margin:0;
-            padding:20px;
-            background:#f5f7fa;
-            font-family:"Microsoft JhengHei",sans-serif;
-        }
+body{
+    margin:0;
+    padding:20px;
+    background:#f5f7fa;
+    font-family:"Microsoft JhengHei",sans-serif;
+}
 
-        .container{
-            max-width:1400px;
-            margin:auto;
-        }
+.container{
+    max-width:1400px;
+    margin:auto;
+}
 
-        h1{
-            text-align:center;
-            color:#1f2937;
-            margin-bottom:30px;
-        }
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
 
-        .grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-            gap:20px;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+}
 
-        .card{
-            background:white;
-            border-radius:15px;
-            padding:20px;
-            box-shadow:0 2px 8px rgba(0,0,0,.1);
-        }
+.card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
 
-        .card h2{
-            margin-top:0;
-            color:#374151;
-        }
+.card h2{
+    margin-top:0;
+}
 
-        .number{
-            font-size:28px;
-            font-weight:bold;
-            color:red;
-            margin:15px 0;
-        }
+.number{
+    font-size:28px;
+    font-weight:bold;
+    color:red;
+    margin:15px 0;
+}
 
-        .star{
-            font-size:28px;
-            font-weight:bold;
-            color:#2563eb;
-            margin:15px 0;
-        }
+.star{
+    font-size:28px;
+    font-weight:bold;
+    color:#2563eb;
+    margin:15px 0;
+}
 
-        .info{
-            color:#666;
-            font-size:18px;
-            margin-top:10px;
-        }
+.info{
+    color:#666;
+    margin-top:10px;
+}
 
-        .btn{
-            display:inline-block;
-            background:#2563eb;
-            color:white;
-            padding:12px 20px;
-            text-decoration:none;
-            border-radius:10px;
-            font-weight:bold;
-            margin-top:10px;
-        }
+.btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    text-decoration:none;
+    margin:5px;
+}
 
-        .btn:hover{
-            background:#1d4ed8;
-        }
+.btn:hover{
+    background:#1d4ed8;
+}
 
-        .footer{
-            text-align:center;
-            margin-top:30px;
-            color:#888;
-        }
+.footer{
+    margin-top:30px;
+    text-align:center;
+    color:#666;
+}
 
-    </style>
+</style>
 
 </head>
 
@@ -94,137 +90,74 @@
 
 <div class="container">
 
-    <h1>🎰 台灣彩券分析系統</h1>
+<h1>🎰 台灣彩券分析系統</h1>
 
-    <div class="grid">
+<div class="grid">
 
-        <!-- 今彩539 -->
-        <div class="card">
-
-            <h2>今彩539</h2>
-
-            <div id="539_numbers" class="number">
-
-                載入中...
-
-            </div>
-
-            <div id="539_info" class="info"></div>
-
-        </div>
-
-        <!-- 3星彩 -->
-        <div class="card">
-
-            <h2>3星彩</h2>
-
-            <div id="3star_numbers" class="star">
-
-                載入中...
-
-            </div>
-
-            <div id="3star_info" class="info"></div>
-
-        </div>
-
-        <!-- 威力彩 -->
-        <div class="card">
-
-            <h2>威力彩</h2>
-
-            <div id="power_numbers" class="number">
-
-                載入中...
-
-            </div>
-
-            <div id="power_special" class="info"></div>
-
-        </div>
-
-        <!-- 4星彩 -->
-        <div class="card">
-
-            <h2>4星彩</h2>
-
-            <div id="4star_numbers" class="star">
-
-                載入中...
-
-            </div>
-
-            <div id="4star_info" class="info"></div>
-
-        </div>
-
-        <!-- 大樂透 -->
-        <div class="card">
-
-            <h2>大樂透</h2>
-
-            <div id="lotto_numbers" class="number">
-
-                載入中...
-
-            </div>
-
-            <div id="lotto_special" class="info"></div>
-
-        </div>
-
-        <!-- 系統資訊 -->
-        <div class="card">
-
-            <h2>系統資訊</h2>
-
-            <div id="update_time">
-
-                資料載入中...
-
-            </div>
-
-        </div>
-
-        <!-- 報表下載 -->
-        <div class="card">
-
-            <h2>報表下載</h2>
-
-            <p>
-                最新開獎紀錄.xlsx
-
-                    📊 Excel報表
-
-                </a>
-            </p>
-
-            <p>
-                最新開獎紀錄.docx
-
-                    📄 Word報表
-
-                </a>
-            </p>
-
-        </div>
-
+    <div class="card">
+        <h2>今彩539</h2>
+        <div id="539_numbers" class="number">載入中...</div>
+        <div id="539_info" class="info"></div>
     </div>
 
-    <div class="footer">
+    <div class="card">
+        <h2>3星彩</h2>
+        <div id="3star_numbers" class="star">載入中...</div>
+        <div id="3star_info" class="info"></div>
+    </div>
 
-        Tony-1943 台灣彩券分析系統
+    <div class="card">
+        <h2>威力彩</h2>
+        <div id="power_numbers" class="number">載入中...</div>
+        <div id="power_special" class="info"></div>
+    </div>
+
+    <div class="card">
+        <h2>4星彩</h2>
+        <div id="4star_numbers" class="star">載入中...</div>
+        <div id="4star_info" class="info"></div>
+    </div>
+
+    <div class="card">
+        <h2>大樂透</h2>
+        <div id="lotto_numbers" class="number">載入中...</div>
+        <div id="lotto_special" class="info"></div>
+    </div>
+
+    <div class="card">
+        <h2>系統資訊</h2>
+        <div id="update_time">資料載入中...</div>
+    </div>
+
+    <div class="card">
+        <h2>報表下載</h2>
+
+        <a href錄.xlsx
+           📊 Excel報表
+        </a>
+
+        <br><br>
+
+        "
+           class="btn"
+           target="_blank">
+           📄 Word報表
+        </a>
 
     </div>
 
 </div>
 
+<div class="footer">
+Tony-1943 台灣彩券分析系統
+</div>
+
+</div>
+
 <script>
 
-fetch("data.json?t=" + new Date().getTime())
-
-.then(response => response.json())
-
+fetch("data.json?t=" + Date.now())
+.then(r => r.json())
 .then(data => {
 
     document.getElementById("539_numbers").innerText =
@@ -233,7 +166,7 @@ fetch("data.json?t=" + new Date().getTime())
     document.getElementById("539_info").innerText =
         "期別：" +
         data["539"]["period"] +
-        "　日期：" +
+        " 日期：" +
         data["539"]["date"];
 
     document.getElementById("power_numbers").innerText =
@@ -265,16 +198,13 @@ fetch("data.json?t=" + new Date().getTime())
     document.getElementById("update_time").innerText =
         "最後更新：" +
         data["update_time"];
-
 })
+.catch(err => {
 
-.catch(error => {
-
-    console.error(error);
+    console.log(err);
 
     document.getElementById("update_time").innerText =
-        "讀取 data.json 失敗";
-
+        "讀取資料失敗";
 });
 
 </script>
