@@ -4,9 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>台灣彩券分析系統</title>
 
@@ -19,105 +17,56 @@ body{
     font-family:"Microsoft JhengHei",sans-serif;
 }
 
-h1{
-    text-align:center;
-    color:#1f2937;
-}
-
 .container{
     max-width:1200px;
     margin:auto;
 }
 
+h1{
+    text-align:center;
+    color:#1f2937;
+}
+
 .grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(350px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
     gap:20px;
 }
 
 .card{
-
     background:white;
-
     border-radius:15px;
-
     padding:20px;
-
-    box-shadow:
-    0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .card h2{
-
     margin-top:0;
-
     color:#374151;
 }
 
 .number{
-
-    font-size:40px;
-
+    font-size:28px;
     font-weight:bold;
-
     color:red;
-
-    margin:15px 0;
+    margin:10px 0;
 }
 
-.small-number{
-
-    font-size:30px;
-
+.star{
+    font-size:24px;
     font-weight:bold;
-
     color:#2563eb;
 }
 
-.download{
-
-    margin-top:20px;
-}
-
-.btn{
-
-    display:inline-block;
-
-    padding:12px 20px;
-
-    margin:5px;
-
-    background:#2563eb;
-
-    color:white;
-
-    text-decoration:none;
-
-    border-radius:8px;
-}
-
-.btn:hover{
-
-    background:#1d4ed8;
-}
-
-.analysis{
-
-    line-height:2;
-    font-size:18px;
+.info{
+    color:#666;
+    margin-top:5px;
 }
 
 .footer{
-
     text-align:center;
-
     margin-top:30px;
-
-    color:#6b7280;
+    color:#888;
 }
 
 </style>
@@ -130,148 +79,76 @@ h1{
 
 <h1>🎰 台灣彩券分析系統</h1>
 
-
 <div class="grid">
 
+    <!-- 539 -->
     <div class="card">
-
         <h2>今彩539</h2>
-
-        <div class="number">
-
-            12 14 19 25 26
-
+        <div id="539_numbers" class="number">
+            載入中...
         </div>
-
-        <p>最新一期</p>
-
+        <div id="539_info" class="info"></div>
     </div>
 
-
+    <!-- 3星彩 -->
     <div class="card">
-
         <h2>3星彩</h2>
-
-        <div class="small-number">
-
-            5 0 2
-
+        <div id="3star_numbers" class="star">
+            載入中...
         </div>
-
+        <div id="3star_info" class="info"></div>
     </div>
 
-
+    <!-- 威力彩 -->
     <div class="card">
-
         <h2>威力彩</h2>
-
-        <div class="number">
-
-            08 10 13 21 29 31
-
+        <div id="power_numbers" class="number">
+            載入中...
         </div>
-
-        <p>第二區：07</p>
-
+        <div id="power_special" class="info"></div>
     </div>
 
-
+    <!-- 4星彩 -->
     <div class="card">
-
         <h2>4星彩</h2>
-
-        <div class="small-number">
-
-            7 9 4 7
-
+        <div id="4star_numbers" class="star">
+            載入中...
         </div>
-
+        <div id="4star_info" class="info"></div>
     </div>
 
-
+    <!-- 大樂透 -->
     <div class="card">
-
         <h2>大樂透</h2>
-
-        <div class="number">
-
-            02 08 15 26 35 46
-
+        <div id="lotto_numbers" class="number">
+            載入中...
         </div>
-
-        <p>特別號：11</p>
-
+        <div id="lotto_special" class="info"></div>
     </div>
 
-
+    <!-- 系統資訊 -->
     <div class="card">
-
-        <h2>熱門號碼 TOP5</h2>
-
-        <div class="analysis">
-
-            12<br>
-            19<br>
-            25<br>
-            35<br>
-            14
-
+        <h2>系統資訊</h2>
+        <div id="update_time">
+            資料載入中...
         </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>遺漏值排行</h2>
-
-        <div class="analysis">
-
-            08 （23期）<br>
-            17 （19期）<br>
-            04 （18期）<br>
-            32 （17期）<br>
-            39 （15期）
-
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>報表下載</h2>
-
-        <div class="download">
-
-            <a href="sx
-
-               📊 Excel報表
-
-            </a>
-
-            紀錄.docx"
-               class="btn">
-
-               📄 Word報表
-
-            </a>
-
-        </div>
-
     </div>
 
 </div>
 
 <div class="footer">
 
-最後更新：
-2026-07-29
+Tony-1943 台灣彩券分析系統
 
 </div>
 
 </div>
 
-</body>
+<script>
 
-</html>
+fetch("data.json?t=" + new Date().getTime())
+.then(response => response.json())
+.then(data => {
+
+    // 今彩539
+    document
