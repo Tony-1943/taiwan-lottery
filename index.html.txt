@@ -1,19 +1,63 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>台灣彩券分析系統</title>
+
+<style>
+
+body{
+    font-family: Microsoft JhengHei;
+    margin:30px;
+    background:#f5f5f5;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.number{
+    color:red;
+    font-size:28px;
+    font-weight:bold;
+}
+
+</style>
+
 </head>
 
 <body>
 
 <h1>台灣彩券分析系統</h1>
 
-<p>今彩539</p>
+<div class="card">
+<h2>今彩539</h2>
+<div class="number">
+12 14 19 25 26
+</div>
+</div>
 
-<p>12 14 19 25 26</p>
+<div class="card">
+<h2>威力彩</h2>
+<div class="number">
+08 10 13 21 29 31
+</div>
+第二區：
+07
+</div>
+
+<div class="card">
+<h2>大樂透</h2>
+<div class="number">
+02 08 15 26 35 46
+</div>
+特別號：
+11
+</div>
 
 </body>
-
 </html>
+``
