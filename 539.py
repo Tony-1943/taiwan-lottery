@@ -5,8 +5,7 @@ from openpyxl import load_workbook
 from TaiwanLottery import TaiwanLotteryCrawler
 from docx import Document
 from docx.shared import Pt
-
-
+from datetime import datetime
 # =====================================
 # 日期格式
 # =====================================
@@ -100,17 +99,18 @@ def get_data():
     crawler = TaiwanLotteryCrawler()
 
     data = {
-
-        "539": crawler.daily_cash()[:10],
-
-        "威力彩": crawler.super_lotto()[:10],
-
-        "大樂透": crawler.lotto649()[:10],
-
-        "3星彩": crawler.lotto3d()[:10],
-
-        "4星彩": crawler.lotto4d()[:10]
+    "539": crawler.daily_cash()[:10],
+    "威力彩": crawler.super_lotto()[:10],
+    "大樂透": crawler.lotto649()[:10],
+    "3星彩": crawler.lotto3d()[:10],
+    "4星彩": crawler.lotto4d()[:10]
     }
+
+    print("539:", len(data["539"]))
+    print("威力彩:", len(data["威力彩"]))
+    print("大樂透:", len(data["大樂透"]))
+    print("3星彩:", len(data["3星彩"]))
+    print("4星彩:", len(data["4星彩"]))
 
     return data
 
@@ -126,7 +126,7 @@ def write_539(ws, data):
     for r in range(3, 12):
         copy_row_style(ws, 2, r)
 
-    for row, item in enumerate(data, start=2):
+    for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = item["期別"]
         ws.cell(row, 2).value = roc_date(item["開獎日期"])
@@ -144,7 +144,7 @@ def write_power(ws, data):
     for r in range(3, 12):
         copy_row_style(ws, 2, r)
 
-    for row, item in enumerate(data, start=2):
+    for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = item["期別"]
 
@@ -171,7 +171,7 @@ def write_lotto649(ws, data):
     for r in range(3, 12):
         copy_row_style(ws, 2, r)
 
-    for row, item in enumerate(data, start=2):
+    for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = item["期別"]
 
@@ -198,7 +198,7 @@ def write_3star(ws, data):
     for r in range(3, 12):
         copy_row_style(ws, 2, r)
 
-    for row, item in enumerate(data, start=2):
+    for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = short_date(
             item["開獎日期"]
@@ -220,7 +220,7 @@ def write_4star(ws, data):
     for r in range(3, 12):
         copy_row_style(ws, 2, r)
 
-    for row, item in enumerate(data, start=2):
+    for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = short_date(
             item["開獎日期"]
@@ -313,7 +313,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(data["539"][:10]):
+    for i, item in enumerate(reversed(data["539"][:10])):
 
         row = i + 1
 
@@ -328,7 +328,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(data["3星彩"][:10]):
+    for i, item in enumerate(reversed(data["3星彩"][:10])):
 
         row = i + 1
 
@@ -347,7 +347,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(data["威力彩"][:10]):
+    for i, item in enumerate(reversed(data["威力彩"][:10])):
 
         row = i + 1
 
@@ -371,7 +371,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(data["4星彩"][:10]):
+    for i, item in enumerate(reversed(data["4星彩"][:10])):
 
         row = i + 1
 
@@ -390,7 +390,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(data["大樂透"][:10]):
+    for i, item in enumerate(reversed(data["大樂透"][:10])):
 
         row = i + 1
 
@@ -522,24 +522,24 @@ def create_json(data):
 def main():
 
     print("開始抓取資料...")
-
+######測試
     data = get_data()
+    for game, records in data.items():
+        print(f"{game}: {len(records)}")
+######
+    if all(len(v) == 0 for v in data.values()):
 
-    print("\n539")
-    print(data["539"][0])
+        print("本月尚無資料")
 
-    print("\n威力彩")
-    print(data["威力彩"][0])
+        print("保留上次產生的 Excel、Word、JSON")
 
-    print("\n大樂透")
-    print(data["大樂透"][0])
-
-    print("\n3星彩")
-    print(data["3星彩"][0])
-
-    print("\n4星彩")
-    print(data["4星彩"][0])
-
+        return
+    
+    print("539:", len(data["539"]))
+    print("威力彩:", len(data["威力彩"]))
+    print("大樂透:", len(data["大樂透"]))
+    print("3星彩:", len(data["3星彩"]))
+    print("4星彩:", len(data["4星彩"]))
     create_excel(data)
     create_word(data)
     print("全部完成")
