@@ -295,7 +295,7 @@ def resize_table_font(table):
 
                 for run in paragraph.runs:
 
-                    run.font.size = Pt(8)
+                    run.font.size = Pt(9)
 
 
 # =====================================
