@@ -157,6 +157,36 @@ def get_lotto649_history(target=200):
             year -= 1
 
     return result[:target]
+#威力採
+def get_power_history(target=200):
+
+    crawler = TaiwanLotteryCrawler()
+
+    result = []
+
+    year = datetime.now().year
+    month = datetime.now().month
+
+    while len(result) < target:
+
+        try:
+
+            data = crawler.super_lotto(
+                [str(year), f"{month:02d}"]
+            )
+
+            result.extend(data)
+
+        except:
+            pass
+
+        month -= 1
+
+        if month == 0:
+            month = 12
+            year -= 1
+
+    return result[:target]
 # =====================================
 # 均值演算法
 # =====================================
@@ -227,7 +257,46 @@ def predict_lotto649_mean(records, periods):
 
     return sorted(result)
 #威力彩-------------------------------------
+def predict_power_mean(records, periods):
 
+    records = records[:periods]
+
+    first_counter = Counter()
+    second_counter = Counter()
+
+    for item in records:
+
+        for num in item["第一區"]:
+            first_counter[num] += 1
+
+        second_counter[int(item["第二區"])] += 1
+
+    zones = [
+        range(1, 7),
+        range(7, 13),
+        range(13, 19),
+        range(19, 25),
+        range(25, 31),
+        range(31, 39)
+    ]
+
+    first_result = []
+
+    for zone in zones:
+        nums = list(zone)
+        avg = sum(first_counter.get(n, 0)for n in nums) / len(nums)
+        best = min(nums,key=lambda n:abs(first_counter.get(n, 0) - avg))
+        first_result.append(best)
+
+    # 第二區
+    second_nums = list(range(1, 9))
+    avg = sum(second_counter.get(n, 0)for n in second_nums) / len(second_nums)
+    second_best = min(second_nums,key=lambda n:abs(second_counter.get(n, 0) - avg))
+
+    return {
+        "first": sorted(first_result),
+        "second": second_best
+    }
 # =====================================
 # 抓取資料（自動補上月）
 # =====================================
@@ -640,6 +709,7 @@ def create_prediction_json():
 
     history539 = get_539_history(200)
     history649 = get_lotto649_history(200)
+    historyPower = get_power_history(200)
     prediction = {
 
         "539": {
@@ -656,7 +726,17 @@ def create_prediction_json():
             "50": predict_lotto649_mean(history649, 50),
             "100": predict_lotto649_mean(history649, 100),
             "200": predict_lotto649_mean(history649, 200)
-        }
+        },
+
+        "power": {
+
+            "10": predict_power_mean(historyPower, 10),
+            "30": predict_power_mean(historyPower, 30),
+            "50": predict_power_mean(historyPower, 50),
+            "100": predict_power_mean(historyPower, 100),
+            "200": predict_power_mean(historyPower, 200)
+
+}
 
     }
 
@@ -695,7 +775,7 @@ def main():
     create_json(data)
     create_prediction_json()
     print("全部完成")
-    
 
+    
 if __name__ == "__main__":
     main()
