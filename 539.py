@@ -590,6 +590,76 @@ def create_word(data):
     doc.save("最新開獎紀錄.docx")
 
     print("Word完成")
+# ====================================
+#熱度區間
+# ====================================
+def get_539_heat(records, periods):
+    records = records[:periods]
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 40)
+    ]
+    heat = []
+    for zone in zones:
+        count = 0
+        for item in records:
+            for num in item["獎號"]:
+                if num in zone:
+                    count += 1
+        heat.append(count)
+
+    return heat
+
+def get_lotto649_heat(records, periods):
+    records = records[:periods]
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 41),
+        range(41, 50)
+    ]
+    heat = []
+    for zone in zones:
+        count = 0
+        for item in records:
+            for num in item["獎號"]:
+                if num in zone:
+                    count += 1
+        heat.append(count)
+
+    return heat
+
+def get_power_heat(records, periods):
+    records = records[:periods]
+    zones = [
+        range(1, 7),
+        range(7, 13),
+        range(13, 19),
+        range(19, 25),
+        range(25, 31),
+        range(31, 39)
+    ]
+    heat = []
+    for zone in zones:
+        count = 0
+        for item in records:
+            for num in item["第一區"]:
+                if num in zone:
+                    count += 1
+        heat.append(count)
+    second_heat = 0
+    for item in records:
+        second_heat += 1
+
+    return {
+        "zones": heat,
+        "second": second_heat
+    }
 
 # =====================================
 # 產生json
@@ -713,29 +783,44 @@ def create_prediction_json():
     prediction = {
 
         "539": {
-            "10":predict_539_mean(history539,10),
-            "30":predict_539_mean(history539,30),
-            "50":predict_539_mean(history539,50),
-            "100":predict_539_mean(history539,100),
-            "200":predict_539_mean(history539,200)
+            "10": {"numbers": predict_539_mean(history539,10),
+                   "heat": get_539_heat(history539,10)},                
+            "30":{"numbers": predict_539_mean(history539,30),
+                   "heat": get_539_heat(history539,30)},
+            "50":{"numbers": predict_539_mean(history539,50),
+                   "heat": get_539_heat(history539,50)},
+            "100":{"numbers": predict_539_mean(history539,100),
+                   "heat": get_539_heat(history539,100)},
+            "200":{"numbers": predict_539_mean(history539,200),
+                   "heat": get_539_heat(history539,200)},
         },
 
         "lotto649": {
-            "10": predict_lotto649_mean(history649, 10),
-            "30": predict_lotto649_mean(history649, 30),
-            "50": predict_lotto649_mean(history649, 50),
-            "100": predict_lotto649_mean(history649, 100),
-            "200": predict_lotto649_mean(history649, 200)
+            "10": {"numbers": predict_lotto649_mean(history649,10),
+                   "heat": get_lotto649_heat(history649,10)},
+            "30": {"numbers": predict_lotto649_mean(history649,30),
+                   "heat": get_lotto649_heat(history649,30)},
+            "50": {"numbers": predict_lotto649_mean(history649,50),
+                   "heat": get_lotto649_heat(history649,50)},
+            "100": {"numbers": predict_lotto649_mean(history649,100),
+                   "heat": get_lotto649_heat(history649,100)},
+            "200": {"numbers": predict_lotto649_mean(history649,200),
+                   "heat": get_lotto649_heat(history649,200)},
         },
 
         "power": {
 
-            "10": predict_power_mean(historyPower, 10),
-            "30": predict_power_mean(historyPower, 30),
-            "50": predict_power_mean(historyPower, 50),
-            "100": predict_power_mean(historyPower, 100),
-            "200": predict_power_mean(historyPower, 200)
-
+            "10": {"prediction": predict_power_mean(historyPower,10),
+                   "heat": get_power_heat(historyPower,10)},
+            "30": {"prediction": predict_power_mean(historyPower,30),
+                   "heat": get_power_heat(historyPower,30)},
+            "50": {"prediction": predict_power_mean(historyPower,50),
+                   "heat": get_power_heat(historyPower,50)},
+            "100": {"prediction": predict_power_mean(historyPower,100),
+                   "heat": get_power_heat(historyPower,100)},
+            "200": {"prediction": predict_power_mean(historyPower,200),
+                   "heat": get_power_heat(historyPower,200)}
+        
 }
 
     }

@@ -187,7 +187,7 @@ select{
 <div id="prediction" class="prediction-result">
 尚未載入
 </div>
-<h3>📊 區間熱度圖</h3>
+<h3>預測分布圖</h3>
 <div id="heatmap"></div>
 </div>
 
@@ -196,7 +196,7 @@ select{
 
 let predictionData = {};
 
-fetch('prediction.json?t='+Date.now())
+fetch('prediction.json?t=' + Date.now())
 .then(r => r.json())
 .then(data => {
 
@@ -213,29 +213,24 @@ document.getElementById('predictBtn')
     const period =
         document.getElementById('period').value;
 
-    const result =
+    const data =
         predictionData[game][period];
 
-    let display = '';
+    let result;
+    let heat;
 
     if(game === 'power'){
 
-        display =
-            result.first
-            .map(n => String(n).padStart(2,'0'))
-            .join(' ')
-            +
-            ' 第二區：'
-            +
-            String(result.second).padStart(2,'0');
+        result = data.prediction;
+        heat = data.heat.zones;
 
     }else{
 
-        display =
-            result
-            .map(n => String(n).padStart(2,'0'))
-            .join(' ');
+        result = data.numbers;
+        heat = data.heat;
     }
+
+    /* 彩球 */
 
     let ballHtml = '';
 
@@ -250,15 +245,15 @@ document.getElementById('predictBtn')
         });
 
         ballHtml += `
-        <div style="margin-top:15px;font-size:20px;">
+        <div style="width:100%;margin-top:15px;font-size:20px;font-weight:bold;">
             第二區
         </div>
 
         <div class="ball second-ball">
             ${String(result.second).padStart(2,'0')}
         </div>`;
-    }
-    else{
+
+    }else{
 
         result.forEach(n=>{
 
@@ -270,8 +265,10 @@ document.getElementById('predictBtn')
     }
 
     document.getElementById('prediction').innerHTML =
-    `<div class="ball-container">${ballHtml}</div>`;
-    /* 熱度圖 */
+        `<div class="ball-container">${ballHtml}</div>`;
+
+
+    /* 真實熱度圖 */
 
     let heatHtml = '';
 
@@ -285,14 +282,25 @@ document.getElementById('predictBtn')
             '33-39'
         ];
 
-        result.forEach((num,index)=>{
+        heat.forEach((count,index)=>{
 
             heatHtml += `
             <div class="heat-row">
                 <span class="heat-label">${labels[index]}</span>
+
                 <span class="heat-bar"
-                style="width:${num*4}px"></span>
-                ${String(num).padStart(2,'0')}
+                style="
+                    width:${count * 12}px;
+                    background:linear-gradient(
+                        90deg,
+                        #22c55e,
+                        #eab308,
+                        #ef4444
+                    );
+                ">
+                </span>
+
+                ${count}次
             </div>`;
         });
     }
@@ -308,14 +316,25 @@ document.getElementById('predictBtn')
             '41-49'
         ];
 
-        result.forEach((num,index)=>{
+        heat.forEach((count,index)=>{
 
             heatHtml += `
             <div class="heat-row">
                 <span class="heat-label">${labels[index]}</span>
+
                 <span class="heat-bar"
-                style="width:${num*4}px"></span>
-                ${String(num).padStart(2,'0')}
+                style="
+                    width:${count * 12}px;
+                    background:linear-gradient(
+                        90deg,
+                        #22c55e,
+                        #eab308,
+                        #ef4444
+                    );
+                ">
+                </span>
+
+                ${count}次
             </div>`;
         });
     }
@@ -331,25 +350,28 @@ document.getElementById('predictBtn')
             '31-38'
         ];
 
-        result.first.forEach((num,index)=>{
+        heat.forEach((count,index)=>{
 
             heatHtml += `
             <div class="heat-row">
                 <span class="heat-label">${labels[index]}</span>
+
                 <span class="heat-bar"
-                style="width:${num*4}px"></span>
-                ${String(num).padStart(2,'0')}
+                style="
+                    width:${count * 12}px;
+                    background:linear-gradient(
+                        90deg,
+                        #22c55e,
+                        #eab308,
+                        #ef4444
+                    );
+                ">
+                </span>
+
+                ${count}次
             </div>`;
         });
-
-        heatHtml += `
-        <div class="heat-row">
-            <span class="heat-label">第二區</span>
-            <span class="heat-bar"
-            style="width:${result.second*15}px;
-            background:#f59e0b;"></span>
-            ${String(result.second).padStart(2,'0')}
-        </div>`;
+        
     }
 
     document.getElementById('heatmap').innerHTML =
