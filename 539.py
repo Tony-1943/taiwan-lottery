@@ -94,16 +94,82 @@ def clear_rows(ws, start_row=2):
 # 抓取資料
 # =====================================
 
+
+def get_latest_data(get_func, game_name):
+
+    try:
+        data = get_func()
+
+        if len(data) > 0:
+            print(f"{game_name}: 本月資料 {len(data)} 筆")
+            return data[:10]
+
+    except Exception as e:
+        print(f"{game_name} 本月抓取失敗: {e}")
+
+    print(f"{game_name}: 本月無資料，保留空資料")
+
+    return []
+
+
 def get_data():
+
+    # =====================================
+# 抓取資料（自動補上月）
+# =====================================
 
     crawler = TaiwanLotteryCrawler()
 
+    now = datetime.now()
+
+    cur_year = str(now.year)
+    cur_month = f"{now.month:02d}"
+
+    if now.month == 1:
+        pre_year = str(now.year - 1)
+        pre_month = "12"
+    else:
+        pre_year = str(now.year)
+        pre_month = f"{now.month - 1:02d}"
+
+    def merge_game_data(func):
+
+        try:
+            current = func([cur_year, cur_month])
+        except Exception:
+            current = []
+
+        try:
+            previous = func([pre_year, pre_month])
+        except Exception:
+            previous = []
+
+        merged = current + previous
+
+        seen = set()
+        result = []
+
+        for item in merged:
+
+            issue = item["期別"]
+
+            if issue not in seen:
+                seen.add(issue)
+                result.append(item)
+
+        result.sort(
+            key=lambda x: x["期別"],
+            reverse=True
+        )
+
+        return result[:10]
+
     data = {
-    "539": crawler.daily_cash()[:10],
-    "威力彩": crawler.super_lotto()[:10],
-    "大樂透": crawler.lotto649()[:10],
-    "3星彩": crawler.lotto3d()[:10],
-    "4星彩": crawler.lotto4d()[:10]
+        "539": merge_game_data(crawler.daily_cash),
+        "威力彩": merge_game_data(crawler.super_lotto),
+        "大樂透": merge_game_data(crawler.lotto649),
+        "3星彩": merge_game_data(crawler.lotto3d),
+        "4星彩": merge_game_data(crawler.lotto4d)
     }
 
     print("539:", len(data["539"]))
@@ -113,8 +179,6 @@ def get_data():
     print("4星彩:", len(data["4星彩"]))
 
     return data
-
-
 # =====================================
 # 今彩539
 # =====================================
@@ -295,7 +359,7 @@ def resize_table_font(table):
 
                 for run in paragraph.runs:
 
-                    run.font.size = Pt(9)
+                    run.font.size = Pt(12)
 
 
 # =====================================
@@ -313,7 +377,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(reversed(data["539"][:10])):
+    for i, item in enumerate(reversed(data["539"])):
 
         row = i + 1
 
@@ -328,7 +392,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(reversed(data["3星彩"][:10])):
+    for i, item in enumerate(reversed(data["3星彩"])):
 
         row = i + 1
 
@@ -347,7 +411,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(reversed(data["威力彩"][:10])):
+    for i, item in enumerate(reversed(data["威力彩"])):
 
         row = i + 1
 
@@ -371,7 +435,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(reversed(data["4星彩"][:10])):
+    for i, item in enumerate(reversed(data["4星彩"])):
 
         row = i + 1
 
@@ -390,7 +454,7 @@ def create_word(data):
 
     clear_table(table)
 
-    for i, item in enumerate(reversed(data["大樂透"][:10])):
+    for i, item in enumerate(reversed(data["大樂透"])):
 
         row = i + 1
 
@@ -414,9 +478,16 @@ def create_word(data):
     print("Word完成")
 
 
-
-
 def create_json(data):
+    if (
+        not data["539"]
+        or not data["威力彩"]
+        or not data["大樂透"]
+        or not data["3星彩"]
+        or not data["4星彩"]
+    ):
+        print("部分資料不存在，略過 JSON")
+        return
 
     result = {
 
@@ -522,28 +593,18 @@ def create_json(data):
 def main():
 
     print("開始抓取資料...")
-######測試
+
     data = get_data()
-    for game, records in data.items():
-        print(f"{game}: {len(records)}")
-######
+
     if all(len(v) == 0 for v in data.values()):
 
-        print("本月尚無資料")
-
-        print("保留上次產生的 Excel、Word、JSON")
-
+        print("查無任何資料")
         return
-    
-    print("539:", len(data["539"]))
-    print("威力彩:", len(data["威力彩"]))
-    print("大樂透:", len(data["大樂透"]))
-    print("3星彩:", len(data["3星彩"]))
-    print("4星彩:", len(data["4星彩"]))
+
     create_excel(data)
     create_word(data)
-    print("全部完成")
-
     create_json(data)
+
+    print("全部完成")
 if __name__ == "__main__":
     main()
