@@ -6,6 +6,7 @@ from TaiwanLottery import TaiwanLotteryCrawler
 from docx import Document
 from docx.shared import Pt
 from datetime import datetime
+from collections import Counter
 # =====================================
 # 日期格式
 # =====================================
@@ -110,14 +111,64 @@ def get_latest_data(get_func, game_name):
     print(f"{game_name}: 本月無資料，保留空資料")
 
     return []
+# =====================================
+# 抓取200期資料 539
+# =====================================
+def get_539_history(target=200):
+    crawler = TaiwanLotteryCrawler()
+    result = []
+    year = datetime.now().year
+    month = datetime.now().month
+    while len(result) < target:
+        try:
+            data = crawler.daily_cash([str(year), f"{month:02d}"])
+            result.extend(data)
+        except:
+            pass
+        month -= 1
+        if month == 0:
+            month = 12
+            year -= 1
+    return result[:target]
+# =====================================
+# 均值演算法
+# =====================================
+#539
 
+def predict_539_mean(records, periods):
 
-def get_data():
+    records = records[:periods]
 
-    # =====================================
+    counter = Counter()
+
+    for item in records:
+
+        for num in item["獎號"]:
+
+            counter[num] += 1
+
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 40)
+    ]
+
+    result = []
+
+    for zone in zones:
+        nums = list(zone)
+        avg = sum(counter.get(n, 0)for n in nums) / len(nums)
+        best = min(nums,key=lambda n:abs(counter.get(n, 0) - avg))
+        result.append(best)
+
+    return sorted(result)
+# =====================================
 # 抓取資料（自動補上月）
 # =====================================
-
+def get_data():
+    
     crawler = TaiwanLotteryCrawler()
 
     now = datetime.now()
@@ -157,10 +208,7 @@ def get_data():
                 seen.add(issue)
                 result.append(item)
 
-        result.sort(
-            key=lambda x: x["期別"],
-            reverse=True
-        )
+        result.sort(key=lambda x: x["期別"],reverse=True)
 
         return result[:10]
 
@@ -212,13 +260,9 @@ def write_power(ws, data):
 
         ws.cell(row, 1).value = item["期別"]
 
-        ws.cell(row, 2).value = roc_date(
-            item["開獎日期"]
-        )
+        ws.cell(row, 2).value = roc_date(item["開獎日期"])
 
-        ws.cell(row, 3).value = format_lottery_numbers(
-            item["第一區"]
-        )
+        ws.cell(row, 3).value = format_lottery_numbers(item["第一區"])
 
         ws.cell(row, 4).value = \
             f"{int(item['第二區']):02d}"
@@ -238,15 +282,8 @@ def write_lotto649(ws, data):
     for row, item in enumerate(reversed(data), start=2):
 
         ws.cell(row, 1).value = item["期別"]
-
-        ws.cell(row, 2).value = roc_date(
-            item["開獎日期"]
-        )
-
-        ws.cell(row, 3).value = format_lottery_numbers(
-            item["獎號"]
-        )
-
+        ws.cell(row, 2).value = roc_date(item["開獎日期"])
+        ws.cell(row, 3).value = format_lottery_numbers(item["獎號"])
         ws.cell(row, 4).value = \
             f"{int(item['特別號']):02d}"
 
@@ -264,13 +301,8 @@ def write_3star(ws, data):
 
     for row, item in enumerate(reversed(data), start=2):
 
-        ws.cell(row, 1).value = short_date(
-            item["開獎日期"]
-        )
-
-        ws.cell(row, 2).value = format_star_numbers(
-            item["獎號"]
-        )
+        ws.cell(row, 1).value = short_date(item["開獎日期"])
+        ws.cell(row, 2).value = format_star_numbers(item["獎號"])
 
 
 # =====================================
@@ -286,13 +318,8 @@ def write_4star(ws, data):
 
     for row, item in enumerate(reversed(data), start=2):
 
-        ws.cell(row, 1).value = short_date(
-            item["開獎日期"]
-        )
-
-        ws.cell(row, 2).value = format_star_numbers(
-            item["獎號"]
-        )
+        ws.cell(row, 1).value = short_date(item["開獎日期"])
+        ws.cell(row, 2).value = format_star_numbers(item["獎號"])
 
 
 # =====================================
@@ -303,31 +330,15 @@ def create_excel(data):
 
     wb = load_workbook("Excel範本.xlsx")
 
-    write_539(
-        wb["539"],
-        data["539"]
-    )
+    write_539(wb["539"],data["539"])
 
-    write_power(
-        wb["威力彩"],
-        data["威力彩"]
-    )
+    write_power(wb["威力彩"],data["威力彩"])
 
-    write_lotto649(
-        wb["大樂透"],
-        data["大樂透"]
-    )
+    write_lotto649(wb["大樂透"],data["大樂透"])
 
-    write_3star(
-        wb["3星"],
-        data["3星彩"]
-    )
+    write_3star(wb["3星"],data["3星彩"])
 
-    write_4star(
-        wb["4星"],
-        data["4星彩"]
-    )
-
+    write_4star(wb["4星"],data["4星彩"])
     wb.save("最新開獎紀錄.xlsx")
 
     print("Excel完成")
@@ -360,7 +371,6 @@ def resize_table_font(table):
                 for run in paragraph.runs:
 
                     run.font.size = Pt(12)
-
 
 # =====================================
 # Word產生
@@ -395,14 +405,8 @@ def create_word(data):
     for i, item in enumerate(reversed(data["3星彩"])):
 
         row = i + 1
-
-        table.cell(row, 0).text = short_date(
-            item["開獎日期"]
-        )
-
-        table.cell(row, 1).text = format_star_numbers(
-            item["獎號"]
-        )
+        table.cell(row, 0).text = short_date(item["開獎日期"])
+        table.cell(row, 1).text = format_star_numbers(item["獎號"])
 
     resize_table_font(table)
 
@@ -416,15 +420,8 @@ def create_word(data):
         row = i + 1
 
         table.cell(row, 0).text = str(item["期別"])
-
-        table.cell(row, 1).text = roc_date(
-            item["開獎日期"]
-        )
-
-        table.cell(row, 2).text = format_lottery_numbers(
-            item["第一區"]
-        )
-
+        table.cell(row, 1).text = roc_date(item["開獎日期"])
+        table.cell(row, 2).text = format_lottery_numbers(item["第一區"])
         table.cell(row, 3).text = \
             f"{int(item['第二區']):02d}"
 
@@ -436,16 +433,9 @@ def create_word(data):
     clear_table(table)
 
     for i, item in enumerate(reversed(data["4星彩"])):
-
         row = i + 1
-
-        table.cell(row, 0).text = short_date(
-            item["開獎日期"]
-        )
-
-        table.cell(row, 1).text = format_star_numbers(
-            item["獎號"]
-        )
+        table.cell(row, 0).text = short_date(item["開獎日期"])
+        table.cell(row, 1).text = format_star_numbers(item["獎號"])
 
     resize_table_font(table)
 
@@ -455,19 +445,10 @@ def create_word(data):
     clear_table(table)
 
     for i, item in enumerate(reversed(data["大樂透"])):
-
         row = i + 1
-
         table.cell(row, 0).text = str(item["期別"])
-
-        table.cell(row, 1).text = roc_date(
-            item["開獎日期"]
-        )
-
-        table.cell(row, 2).text = format_lottery_numbers(
-            item["獎號"]
-        )
-
+        table.cell(row, 1).text = roc_date(item["開獎日期"])
+        table.cell(row, 2).text = format_lottery_numbers(item["獎號"])
         table.cell(row, 3).text = \
             f"{int(item['特別號']):02d}"
 
@@ -477,7 +458,10 @@ def create_word(data):
 
     print("Word完成")
 
-
+# =====================================
+# 產生json
+# =====================================
+#顯示開獎資料
 def create_json(data):
     if (
         not data["539"]
@@ -586,6 +570,64 @@ def create_json(data):
         )
 
     print("JSON完成")
+#-------------------------------------   
+# 預測json
+def create_prediction_json():
+
+    history539 = get_539_history(200)
+
+    prediction = {
+
+        "539": {
+
+            "10":
+                predict_539_mean(
+                    history539,
+                    10
+                ),
+
+            "30":
+                predict_539_mean(
+                    history539,
+                    30
+                ),
+
+            "50":
+                predict_539_mean(
+                    history539,
+                    50
+                ),
+
+            "100":
+                predict_539_mean(
+                    history539,
+                    100
+                ),
+
+            "200":
+                predict_539_mean(
+                    history539,
+                    200
+                )
+        }
+
+    }
+
+    with open(
+        "prediction.json",
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            prediction,
+            f,
+            ensure_ascii=False,
+            indent=4
+        )
+
+    print("prediction.json完成")
+
 # =====================================
 # 主程式
 # =====================================
@@ -604,7 +646,9 @@ def main():
     create_excel(data)
     create_word(data)
     create_json(data)
-
+    create_prediction_json()
     print("全部完成")
+    
+
 if __name__ == "__main__":
     main()

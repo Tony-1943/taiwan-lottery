@@ -132,13 +132,44 @@ select{
 
 <h3>預測號碼：</h3>
 
-<div id="prediction">
+<div id="prediction" class="prediction-result">
 尚未載入
 </div>
 
 </div>
 
 </div>
+<script>
 
+let predictionData = {};
+
+fetch('prediction.json?t='+Date.now())
+.then(r => r.json())
+.then(data => {
+
+    predictionData = data;
+
+});
+
+document.getElementById('predictBtn')
+.addEventListener('click', function(){
+
+    const game =
+        document.getElementById('game').value;
+
+    const period =
+        document.getElementById('period').value;
+
+    const result =
+        predictionData[game][period];
+
+    document.getElementById('prediction')
+        .innerText =
+        result.map(
+            n => String(n).padStart(2,'0')
+        ).join(' ');
+});
+
+</script>
 </body>
 </html>
