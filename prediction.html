@@ -66,14 +66,57 @@ select{
 }
 
 .prediction-result{
-    text-align:center;
-    font-size:36px;
-    font-weight:bold;
-    color:red;
+    text-align:center;   
     margin-top:20px;
     padding:20px;
 }
 
+#heatmap{
+    margin-top:20px;
+}
+
+.heat-row{
+    margin:12px 0;
+    font-size:16px;
+}
+
+.heat-label{
+    display:inline-block;
+    width:70px;
+    font-weight:bold;
+}
+
+.heat-bar{
+    display:inline-block;
+    height:22px;
+    background:#2563eb;
+    border-radius:6px;
+    vertical-align:middle;
+}
+
+.ball-container{
+    text-align:center;
+}
+
+.ball{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#dc2626;
+    color:white;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    font-weight:bold;
+    margin:5px;
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+
+.second-ball{
+    background:#facc15;
+    color:black;
+}
 </style>
 
 </head>
@@ -144,7 +187,8 @@ select{
 <div id="prediction" class="prediction-result">
 尚未載入
 </div>
-
+<h3>📊 區間熱度圖</h3>
+<div id="heatmap"></div>
 </div>
 
 </div>
@@ -193,8 +237,123 @@ document.getElementById('predictBtn')
             .join(' ');
     }
 
-    document.getElementById('prediction')
-        .innerText = display;
+    let ballHtml = '';
+
+    if(game === 'power'){
+
+        result.first.forEach(n=>{
+
+            ballHtml += `
+            <div class="ball">
+                ${String(n).padStart(2,'0')}
+            </div>`;
+        });
+
+        ballHtml += `
+        <div style="margin-top:15px;font-size:20px;">
+            第二區
+        </div>
+
+        <div class="ball second-ball">
+            ${String(result.second).padStart(2,'0')}
+        </div>`;
+    }
+    else{
+
+        result.forEach(n=>{
+
+            ballHtml += `
+            <div class="ball">
+                ${String(n).padStart(2,'0')}
+            </div>`;
+        });
+    }
+
+    document.getElementById('prediction').innerHTML =
+    `<div class="ball-container">${ballHtml}</div>`;
+    /* 熱度圖 */
+
+    let heatHtml = '';
+
+    if(game === '539'){
+
+        const labels = [
+            '01-08',
+            '09-16',
+            '17-24',
+            '25-32',
+            '33-39'
+        ];
+
+        result.forEach((num,index)=>{
+
+            heatHtml += `
+            <div class="heat-row">
+                <span class="heat-label">${labels[index]}</span>
+                <span class="heat-bar"
+                style="width:${num*4}px"></span>
+                ${String(num).padStart(2,'0')}
+            </div>`;
+        });
+    }
+
+    else if(game === 'lotto649'){
+
+        const labels = [
+            '01-08',
+            '09-16',
+            '17-24',
+            '25-32',
+            '33-40',
+            '41-49'
+        ];
+
+        result.forEach((num,index)=>{
+
+            heatHtml += `
+            <div class="heat-row">
+                <span class="heat-label">${labels[index]}</span>
+                <span class="heat-bar"
+                style="width:${num*4}px"></span>
+                ${String(num).padStart(2,'0')}
+            </div>`;
+        });
+    }
+
+    else if(game === 'power'){
+
+        const labels = [
+            '01-06',
+            '07-12',
+            '13-18',
+            '19-24',
+            '25-30',
+            '31-38'
+        ];
+
+        result.first.forEach((num,index)=>{
+
+            heatHtml += `
+            <div class="heat-row">
+                <span class="heat-label">${labels[index]}</span>
+                <span class="heat-bar"
+                style="width:${num*4}px"></span>
+                ${String(num).padStart(2,'0')}
+            </div>`;
+        });
+
+        heatHtml += `
+        <div class="heat-row">
+            <span class="heat-label">第二區</span>
+            <span class="heat-bar"
+            style="width:${result.second*15}px;
+            background:#f59e0b;"></span>
+            ${String(result.second).padStart(2,'0')}
+        </div>`;
+    }
+
+    document.getElementById('heatmap').innerHTML =
+        heatHtml;
 
 });
 
