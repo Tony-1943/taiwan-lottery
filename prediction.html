@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>號碼預測中心</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:20px;
+    background:#f5f7fa;
+    font-family:"Microsoft JhengHei",sans-serif;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+}
+
+.menu-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:10px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.select-box{
+    margin:15px 0;
+}
+
+select{
+    padding:8px;
+    font-size:18px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎯 號碼預測中心</h1>
+
+<p>
+<a href="index.html" class="menu-btn">
+🏠 返回首頁
+</a>
+</p>
+
+<div class="card">
+
+<h2>分區均值演算法</h2>
+
+<div class="select-box">
+
+遊戲：
+
+<select id="game">
+
+<option value="539">
+今彩539
+</option>
+
+<option value="power">
+威力彩
+</option>
+
+<option value="lotto649">
+大樂透
+</option>
+
+</select>
+
+</div>
+
+<div class="select-box">
+
+分析期數：
+
+<select id="period">
+
+<option value="10">10期</option>
+<option value="30">30期</option>
+<option value="50">50期</option>
+<option value="100">100期</option>
+<option value="200">200期</option>
+
+</select>
+
+</div>
+
+<h3>預測號碼：</h3>
+
+<div id="prediction">
+尚未載入
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
