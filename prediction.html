@@ -281,7 +281,7 @@ document.getElementById('predictBtn')
             '25-32',
             '33-39'
         ];
-
+        const maxHeat = Math.max(...heat);
         heat.forEach((count,index)=>{
 
             heatHtml += `
@@ -290,7 +290,7 @@ document.getElementById('predictBtn')
 
                 <span class="heat-bar"
                 style="
-                    width:${count * 12}px;
+                    width:${(count / maxHeat) * 300}px;
                     background:linear-gradient(
                         90deg,
                         #22c55e,
@@ -315,7 +315,7 @@ document.getElementById('predictBtn')
             '33-40',
             '41-49'
         ];
-
+        const maxHeat = Math.max(...heat);
         heat.forEach((count,index)=>{
 
             heatHtml += `
@@ -324,7 +324,7 @@ document.getElementById('predictBtn')
 
                 <span class="heat-bar"
                 style="
-                    width:${count * 12}px;
+                    width:${(count / maxHeat) * 300}px;
                     background:linear-gradient(
                         90deg,
                         #22c55e,
@@ -349,7 +349,7 @@ document.getElementById('predictBtn')
             '25-30',
             '31-38'
         ];
-
+        const maxHeat = Math.max(...heat);
         heat.forEach((count,index)=>{
 
             heatHtml += `
@@ -358,7 +358,7 @@ document.getElementById('predictBtn')
 
                 <span class="heat-bar"
                 style="
-                    width:${count * 12}px;
+                    width:${(count / maxHeat) * 300}px;
                     background:linear-gradient(
                         90deg,
                         #22c55e,
