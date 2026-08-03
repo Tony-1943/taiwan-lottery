@@ -65,6 +65,15 @@ select{
     background:#1e4faa;
 }
 
+.prediction-result{
+    text-align:center;
+    font-size:36px;
+    font-weight:bold;
+    color:red;
+    margin-top:20px;
+    padding:20px;
+}
+
 </style>
 
 </head>
@@ -163,11 +172,30 @@ document.getElementById('predictBtn')
     const result =
         predictionData[game][period];
 
+    let display = '';
+
+    if(game === 'power'){
+
+        display =
+            result.first
+            .map(n => String(n).padStart(2,'0'))
+            .join(' ')
+            +
+            ' 第二區：'
+            +
+            String(result.second).padStart(2,'0');
+
+    }else{
+
+        display =
+            result
+            .map(n => String(n).padStart(2,'0'))
+            .join(' ');
+    }
+
     document.getElementById('prediction')
-        .innerText =
-        result.map(
-            n => String(n).padStart(2,'0')
-        ).join(' ');
+        .innerText = display;
+
 });
 
 </script>
