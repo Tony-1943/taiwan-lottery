@@ -635,7 +635,9 @@ def get_lotto649_heat(records, periods):
     return heat
 
 def get_power_heat(records, periods):
+
     records = records[:periods]
+
     zones = [
         range(1, 7),
         range(7, 13),
@@ -644,17 +646,35 @@ def get_power_heat(records, periods):
         range(25, 31),
         range(31, 39)
     ]
+
     heat = []
+
     for zone in zones:
+
         count = 0
+
         for item in records:
+
             for num in item["第一區"]:
+
                 if num in zone:
                     count += 1
+
         heat.append(count)
-    second_heat = 0
+
+    second_counter = Counter()
+
     for item in records:
-        second_heat += 1
+
+        second_counter[int(item["第二區"])] += 1
+
+    second_heat = []
+
+    for n in range(1, 9):
+
+        second_heat.append(
+            second_counter.get(n, 0)
+        )
 
     return {
         "zones": heat,
