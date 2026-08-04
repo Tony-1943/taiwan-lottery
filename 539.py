@@ -462,7 +462,7 @@ def write_4star(ws, data):
 
 def create_excel(data):
 
-    wb = load_workbook("Excel範本.xlsx")
+    wb = load_workbook("excel範本.xlsx")
 
     write_539(wb["539"],data["539"])
 
