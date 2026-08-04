@@ -1,6 +1,8 @@
 name: Lottery Auto Update
 
 on:
+  schedule:
+    - cron: '0 18 * * *'
   workflow_dispatch:
 
 permissions:
@@ -24,3 +26,14 @@ jobs:
       - name: Run Program
         run: |
           python 539.py
+
+      - name: Commit Files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add .
+          git commit -m "Auto Update" || echo "No changes"
+
+      - name: Push Files
+        run: |
+          git push
