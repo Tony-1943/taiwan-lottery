@@ -134,7 +134,7 @@ fetch(`https://api.taiwanlottery.com/TLCAPIWeB/Instant/Detail?ScratchId=${id}`)
         game.listPic.forEach(img => {
 
             html += `
-            ${img}
+            <img src="${img}">
             `;
         });
 

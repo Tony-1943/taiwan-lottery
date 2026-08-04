@@ -793,7 +793,7 @@ def create_json(data):
             indent=4
         )
 
-    print("JSON完成")
+    print("data.json完成")
 #-------------------------------------   
 # 預測json
 def create_prediction_json():

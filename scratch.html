@@ -24,9 +24,12 @@ h1{
 }
 
 .top-menu{
-    text-align:center;
+    display:flex;
+    gap:5px;
     margin:20px 0;
+    justify-content:flex-start;
 }
+
 
 .menu-btn{
     display:inline-block;
@@ -35,7 +38,7 @@ h1{
     text-decoration:none;
     padding:12px 24px;
     border-radius:10px;
-    margin:5px;
+    
 }
 .scratch-grid{
     display:grid;
@@ -90,6 +93,10 @@ color:#666;
 margin-top:5px;
 font-size:14px;
 }
+.active{
+background:#6b7280;
+cursor:default;
+}
 </style>
 
 </head>
@@ -99,11 +106,11 @@ font-size:14px;
 
 <h1>🎫 刮刮樂專區</h1>
 
-<div class="top-menu">
+
     <a href="index.html" class="menu-btn">🏠 首頁</a>
-    <a href="prediction.html" class="menu-btn">🎯 預測中心</a>
-    <a href="scratch.html" class="menu-btn">🎫 刮刮樂專區</a>
-</div>
+    <a href="prediction.html" class="menu-btn">🎯 號碼預測</a>
+    <span class="menu-btn active">🎫 刮刮樂專區</span>
+</p>
 
 <div id="scratch-list" class="scratch-grid">
 載入中...
@@ -122,9 +129,9 @@ fetch('scratch.json?t=' + Date.now())
         html += `
         <div class="scratch-card">
 
-            <a href="scratch_detail.html?id=${game.id}="_blank">
+            <a href="scratch_detail.html?id=${game.id}" target="_blank">
 
-                ${game.image} alt="${game.name}">
+                <img src="${game.image}" alt="${game.name}">
 
             </a>
 
