@@ -1,0 +1,26 @@
+name: Lottery Auto Update
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Packages
+        run: |
+          pip install pandas requests openpyxl python-docx TaiwanLottery
+
+      - name: Run Program
+        run: |
+          python 539.py
