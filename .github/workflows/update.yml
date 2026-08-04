@@ -1,10 +1,13 @@
-name: Auto Update
+name: Lottery Auto Update
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  test:
+  update:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,4 +17,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: python --version
+      - name: Install Packages
+        run: |
+          pip install pandas requests openpyxl python-docx
+          pip install pandas
+          pip install openpyxl
+          pip install python-docx
+          pip install TaiwanLottery
+
+      - name: Run Program
+        run: |
+          python 539_穩定版.py
+
+      
