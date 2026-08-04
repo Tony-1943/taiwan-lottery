@@ -371,9 +371,37 @@ document.getElementById('predictBtn')
                 ${count}次
             </div>`;
         });
-        
-    }
+        const secondHeat = data.heat.second;
 
+        const maxSecond =
+            Math.max(...secondHeat);
+
+        heatHtml += `
+        <h4>🟡 第二區熱度</h4>
+        `;
+
+        secondHeat.forEach((count,index)=>{
+
+            heatHtml += `
+            <div class="heat-row">
+
+                <span class="heat-label">
+                    ${String(index+1).padStart(2,'0')}
+                </span>
+
+                <span class="heat-bar"
+                style="
+                    width:${(count/maxSecond)*300}px;
+                    background:#facc15;
+                ">
+                </span>
+
+                ${count}次
+
+            </div>`;
+        });
+    }
+        
     document.getElementById('heatmap').innerHTML =
         heatHtml;
 
