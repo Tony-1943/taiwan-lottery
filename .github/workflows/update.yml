@@ -19,14 +19,8 @@ jobs:
 
       - name: Install Packages
         run: |
-          pip install pandas requests openpyxl python-docx
-          pip install pandas
-          pip install openpyxl
-          pip install python-docx
-          pip install TaiwanLottery
+          pip install pandas requests openpyxl python-docx TaiwanLottery
 
       - name: Run Program
         run: |
           python 539_穩定版.py
-
-      
