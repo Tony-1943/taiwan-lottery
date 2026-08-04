@@ -7,6 +7,7 @@ from docx import Document
 from docx.shared import Pt
 from datetime import datetime
 from collections import Counter
+from scratch_crawler import create_scratch_json
 # =====================================
 # 日期格式
 # =====================================
@@ -879,6 +880,7 @@ def main():
     create_word(data)
     create_json(data)
     create_prediction_json()
+    create_scratch_json()
     print("全部完成")
 
     

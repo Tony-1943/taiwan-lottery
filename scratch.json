@@ -1,0 +1,242 @@
+[
+    {
+        "id": "ca2e7365336d4fb09357bf15941bb97b",
+        "name": "獎金對決",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "33.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260729_140920954_1.jpg",
+        "listingDate": "2026-08-04",
+        "downDate": "2027-02-11"
+    },
+    {
+        "id": "6b54b955ab5e4b8486fc4b5576466f38",
+        "name": "大麻將",
+        "price": 1000,
+        "firstPrize": 10000000,
+        "odds": "70.14",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260729_140647304_1.jpg",
+        "listingDate": "2026-08-04",
+        "downDate": "2027-02-11"
+    },
+    {
+        "id": "8cc5f57a85544d2cbfd4fe53d8a0fa87",
+        "name": "財富密碼",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "32.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260709_110849726_1.jpg",
+        "listingDate": "2026-07-16",
+        "downDate": "2027-01-18"
+    },
+    {
+        "id": "42ad7c32f9024f31b36512c747b6c13c",
+        "name": "刮刮金樂透",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "31.60",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260709_105827182_1.jpg",
+        "listingDate": "2026-07-16",
+        "downDate": "2027-01-18"
+    },
+    {
+        "id": "f7eafdff45544312b58df5d273e46294",
+        "name": "狂刮10萬",
+        "price": 200,
+        "firstPrize": 100000,
+        "odds": "30.09",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260626_105630564_1.jpg",
+        "listingDate": "2026-07-02",
+        "downDate": "2027-01-04"
+    },
+    {
+        "id": "6a26038fbdd3449f93d6cef10f2eb83a",
+        "name": "無敵777",
+        "price": 300,
+        "firstPrize": 3000000,
+        "odds": "36.01",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260626_104859417_1.jpg",
+        "listingDate": "2026-07-02",
+        "downDate": "2027-01-04"
+    },
+    {
+        "id": "aefd15760e4f4b67a3446f292b6b21e4",
+        "name": "嗨刮123",
+        "price": 100,
+        "firstPrize": 300000,
+        "odds": "33.01",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260609_110605548_1.jpg",
+        "listingDate": "2026-06-15",
+        "downDate": "2026-12-15"
+    },
+    {
+        "id": "18c1999a95ec452eb74466610202e5bb",
+        "name": "財運高升",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "31.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260609_105608478_1.jpg",
+        "listingDate": "2026-06-15",
+        "downDate": "2026-12-15"
+    },
+    {
+        "id": "dd7e1309f5434275a6ed9e0f6c4a3792",
+        "name": "好運發發",
+        "price": 200,
+        "firstPrize": 88000,
+        "odds": "31.99",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260527_161218989_1.jpg",
+        "listingDate": "2026-06-02",
+        "downDate": "2026-12-02"
+    },
+    {
+        "id": "a491e2d76a5c479ab2b0aa6661cb6b8c",
+        "name": "樂刮$5,000",
+        "price": 500,
+        "firstPrize": 3000000,
+        "odds": "34.73",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260527_160952539_1.jpg",
+        "listingDate": "2026-06-02",
+        "downDate": "2026-12-02"
+    },
+    {
+        "id": "eef04c61e8a4446c9ebddf43a205db92",
+        "name": "點球成金",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "32.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260513_095553754_1.jpg",
+        "listingDate": "2026-05-19",
+        "downDate": "2026-11-19"
+    },
+    {
+        "id": "8c5865c764424927bdfe068a0eb55f60",
+        "name": "獎金倍倍樂",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "31.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260513_095311624_1.jpg",
+        "listingDate": "2026-05-19",
+        "downDate": "2026-11-19"
+    },
+    {
+        "id": "692c7e517d60422c8c104d2e83cfcff2",
+        "name": "金鑽999",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "27.55",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260428_094141520_1.jpg",
+        "listingDate": "2026-05-05",
+        "downDate": "2026-11-05"
+    },
+    {
+        "id": "06172030aee3447baaf40691f61bc1f9",
+        "name": "麻將大賓果",
+        "price": 300,
+        "firstPrize": 3000000,
+        "odds": "36.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260428_093601785_1.jpg",
+        "listingDate": "2026-05-05",
+        "downDate": "2026-11-05"
+    },
+    {
+        "id": "3a86b2ae52454e7db19c9e01b790b307",
+        "name": "一觸即發",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "34.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_143828610_1.jpg",
+        "listingDate": "2026-04-07",
+        "downDate": "2026-10-21"
+    },
+    {
+        "id": "04a455541d7748199c1f4d8971526a87",
+        "name": "獎金獵人",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "30.10",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_143540043_1.jpg",
+        "listingDate": "2026-04-07",
+        "downDate": "2026-10-21"
+    },
+    {
+        "id": "3c8ce3598bde4b0ab69b66a9348e4bca",
+        "name": "幸運777",
+        "price": 100,
+        "firstPrize": 700000,
+        "odds": "30.11",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_142342980_1.jpg",
+        "listingDate": "2026-04-07",
+        "downDate": "2026-10-07"
+    },
+    {
+        "id": "1f214aefa67d45d0b0991d1f47ce05b3",
+        "name": "幸運拉霸",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "32.99",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_142019063_1.jpg",
+        "listingDate": "2026-04-07",
+        "downDate": "2026-10-07"
+    },
+    {
+        "id": "4dcef3c70ff4402989d9943d07bd8d88",
+        "name": "出棋制勝",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "36.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260313_175227942_1.jpg",
+        "listingDate": "2026-03-19",
+        "downDate": "2026-09-24"
+    },
+    {
+        "id": "c392dc9b2cc44d109fce020475dfc1ad",
+        "name": "幸運開獎機",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "30.10",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260313_175024366_1.jpg",
+        "listingDate": "2026-03-19",
+        "downDate": "2026-09-24"
+    },
+    {
+        "id": "e9bbf3ed6ec34abcb9a383d86813209a",
+        "name": "釣魚高手",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "33.01",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260304_152020314_1.jpg",
+        "listingDate": "2026-03-10",
+        "downDate": "2026-09-10"
+    },
+    {
+        "id": "f949fe535177433cab2bb54b702b6ad7",
+        "name": "無敵30倍",
+        "price": 300,
+        "firstPrize": 3000000,
+        "odds": "31.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260304_151809119_1.jpg",
+        "listingDate": "2026-03-10",
+        "downDate": "2026-09-10"
+    },
+    {
+        "id": "95e2d9a9884140c188a73ffc693a4b61",
+        "name": "樂刮$2,000",
+        "price": 200,
+        "firstPrize": 1000000,
+        "odds": "25.10",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260211_162250085_1.jpg",
+        "listingDate": "2026-02-24",
+        "downDate": "2026-08-24"
+    },
+    {
+        "id": "a8a0ae414f1240c6b9e387221eab7721",
+        "name": "鑽很大",
+        "price": 500,
+        "firstPrize": 5000000,
+        "odds": "40.14",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260211_162045480_1.jpg",
+        "listingDate": "2026-02-24",
+        "downDate": "2026-08-24"
+    }
+]

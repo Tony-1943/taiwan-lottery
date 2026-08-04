@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刮刮樂詳細資料</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:20px;
+    background:#f5f7fa;
+    font-family:"Microsoft JhengHei",sans-serif;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.menu-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.menu-btn:hover{
+    background:#1d4ed8;
+}
+
+h1{
+    text-align:center;
+}
+
+.main-image{
+    width:100%;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.info{
+    font-size:18px;
+    margin:10px 0;
+}
+
+.ticket-images{
+    margin-top:30px;
+}
+
+.ticket-images img{
+    width:100%;
+    margin-top:15px;
+    border-radius:12px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<a href="scratch.html" class="menu-btn">
+⬅ 返回刮刮樂專區
+</a>
+
+<h1 id="name">載入中...</h1>
+
+<img id="mainImage" class="main-image">
+
+<div id="content"></div>
+
+</div>
+
+<script>
+
+const id = new URLSearchParams(window.location.search).get("id");
+
+fetch(`https://api.taiwanlottery.com/TLCAPIWeB/Instant/Detail?ScratchId=${id}`)
+.then(r => r.json())
+.then(data => {
+
+    const game = data.content;
+
+    document.getElementById("name").innerText =
+        game.scratchName;
+
+    document.getElementById("mainImage").src =
+        game.detailPicPath;
+
+    let html = `
+        <div class="info">
+            💰 售價：${game.money} 元
+        </div>
+
+        <div class="info">
+            🎯 中獎率：${game.oddsOfWinning}%
+        </div>
+
+        <div class="info">
+            🎫 發行張數：
+            ${Number(game.issuedCount).toLocaleString()} 張
+        </div>
+
+        <div class="info">
+            📅 上市日期：
+            ${game.listingDate.substring(0,10)}
+        </div>
+
+        <div class="info">
+            📅 下架日期：
+            ${game.downDate.substring(0,10)}
+        </div>
+
+        <hr>
+
+        ${game.moreDesc}
+
+        <div class="ticket-images">
+            <h2>🎫 票面展示</h2>
+    `;
+
+    if(game.listPic){
+
+        game.listPic.forEach(img => {
+
+            html += `
+            ${img}
+            `;
+        });
+
+    }
+
+    html += `
+        </div>
+    `;
+
+    document.getElementById("content").innerHTML =
+        html;
+
+})
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById("content").innerHTML =
+        "<h2>無法載入刮刮樂資料</h2>";
+
+});
+
+</script>
+
+</body>
+</html>
