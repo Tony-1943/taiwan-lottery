@@ -7,6 +7,7 @@ from docx import Document
 from docx.shared import Pt
 from datetime import datetime
 from collections import Counter
+from scratch_crawler import create_scratch_json
 # =====================================
 # 日期格式
 # =====================================
@@ -112,8 +113,9 @@ def get_latest_data(get_func, game_name):
 
     return []
 # =====================================
-# 抓取200期資料 539
+# 抓取200期資料 
 # =====================================
+# 539
 def get_539_history(target=200):
     crawler = TaiwanLotteryCrawler()
     result = []
@@ -130,11 +132,67 @@ def get_539_history(target=200):
             month = 12
             year -= 1
     return result[:target]
+# 大樂透
+def get_lotto649_history(target=200):
+
+    crawler = TaiwanLotteryCrawler()
+
+    result = []
+
+    year = datetime.now().year
+    month = datetime.now().month
+
+    while len(result) < target:
+
+        try:
+            data = crawler.lotto649([str(year), f"{month:02d}"])
+            result.extend(data)
+
+        except:
+            pass
+
+        month -= 1
+
+        if month == 0:
+            month = 12
+            year -= 1
+
+    return result[:target]
+#威力採
+def get_power_history(target=200):
+
+    crawler = TaiwanLotteryCrawler()
+
+    result = []
+
+    year = datetime.now().year
+    month = datetime.now().month
+
+    while len(result) < target:
+
+        try:
+
+            data = crawler.super_lotto(
+                [str(year), f"{month:02d}"]
+            )
+
+            result.extend(data)
+
+        except:
+            pass
+
+        month -= 1
+
+        if month == 0:
+            month = 12
+            year -= 1
+
+    return result[:target]
 # =====================================
 # 均值演算法
 # =====================================
-#539
 
+#539-----------------------------------
 def predict_539_mean(records, periods):
 
     records = records[:periods]
@@ -164,6 +222,82 @@ def predict_539_mean(records, periods):
         result.append(best)
 
     return sorted(result)
+
+#大樂透-------------------------------------
+def predict_lotto649_mean(records, periods):
+
+    records = records[:periods]
+
+    counter = Counter()
+
+    for item in records:
+
+        for num in item["獎號"]:
+
+            counter[num] += 1
+
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 41),
+        range(41, 50)
+    ]
+
+    result = []
+
+    for zone in zones:
+
+        nums = list(zone)
+
+        avg = sum(counter.get(n, 0)for n in nums) / len(nums)
+        best = min(nums,key=lambda n:abs(counter.get(n, 0) - avg))
+
+        result.append(best)
+
+    return sorted(result)
+#威力彩-------------------------------------
+def predict_power_mean(records, periods):
+
+    records = records[:periods]
+
+    first_counter = Counter()
+    second_counter = Counter()
+
+    for item in records:
+
+        for num in item["第一區"]:
+            first_counter[num] += 1
+
+        second_counter[int(item["第二區"])] += 1
+
+    zones = [
+        range(1, 7),
+        range(7, 13),
+        range(13, 19),
+        range(19, 25),
+        range(25, 31),
+        range(31, 39)
+    ]
+
+    first_result = []
+
+    for zone in zones:
+        nums = list(zone)
+        avg = sum(first_counter.get(n, 0)for n in nums) / len(nums)
+        best = min(nums,key=lambda n:abs(first_counter.get(n, 0) - avg))
+        first_result.append(best)
+
+    # 第二區
+    second_nums = list(range(1, 9))
+    avg = sum(second_counter.get(n, 0)for n in second_nums) / len(second_nums)
+    second_best = min(second_nums,key=lambda n:abs(second_counter.get(n, 0) - avg))
+
+    return {
+        "first": sorted(first_result),
+        "second": second_best
+    }
 # =====================================
 # 抓取資料（自動補上月）
 # =====================================
@@ -328,7 +462,7 @@ def write_4star(ws, data):
 
 def create_excel(data):
 
-    wb = load_workbook("Excel範本.xlsx")
+    wb = load_workbook("excel範本.xlsx")
 
     write_539(wb["539"],data["539"])
 
@@ -457,6 +591,96 @@ def create_word(data):
     doc.save("最新開獎紀錄.docx")
 
     print("Word完成")
+# ====================================
+#熱度區間
+# ====================================
+def get_539_heat(records, periods):
+    records = records[:periods]
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 40)
+    ]
+    heat = []
+    for zone in zones:
+        count = 0
+        for item in records:
+            for num in item["獎號"]:
+                if num in zone:
+                    count += 1
+        heat.append(count)
+
+    return heat
+
+def get_lotto649_heat(records, periods):
+    records = records[:periods]
+    zones = [
+        range(1, 9),
+        range(9, 17),
+        range(17, 25),
+        range(25, 33),
+        range(33, 41),
+        range(41, 50)
+    ]
+    heat = []
+    for zone in zones:
+        count = 0
+        for item in records:
+            for num in item["獎號"]:
+                if num in zone:
+                    count += 1
+        heat.append(count)
+
+    return heat
+
+def get_power_heat(records, periods):
+
+    records = records[:periods]
+
+    zones = [
+        range(1, 7),
+        range(7, 13),
+        range(13, 19),
+        range(19, 25),
+        range(25, 31),
+        range(31, 39)
+    ]
+
+    heat = []
+
+    for zone in zones:
+
+        count = 0
+
+        for item in records:
+
+            for num in item["第一區"]:
+
+                if num in zone:
+                    count += 1
+
+        heat.append(count)
+
+    second_counter = Counter()
+
+    for item in records:
+
+        second_counter[int(item["第二區"])] += 1
+
+    second_heat = []
+
+    for n in range(1, 9):
+
+        second_heat.append(
+            second_counter.get(n, 0)
+        )
+
+    return {
+        "zones": heat,
+        "second": second_heat
+    }
 
 # =====================================
 # 產生json
@@ -569,47 +793,56 @@ def create_json(data):
             indent=4
         )
 
-    print("JSON完成")
+    print("data.json完成")
 #-------------------------------------   
 # 預測json
 def create_prediction_json():
 
     history539 = get_539_history(200)
-
+    history649 = get_lotto649_history(200)
+    historyPower = get_power_history(200)
     prediction = {
 
         "539": {
+            "10": {"numbers": predict_539_mean(history539,10),
+                   "heat": get_539_heat(history539,10)},                
+            "30":{"numbers": predict_539_mean(history539,30),
+                   "heat": get_539_heat(history539,30)},
+            "50":{"numbers": predict_539_mean(history539,50),
+                   "heat": get_539_heat(history539,50)},
+            "100":{"numbers": predict_539_mean(history539,100),
+                   "heat": get_539_heat(history539,100)},
+            "200":{"numbers": predict_539_mean(history539,200),
+                   "heat": get_539_heat(history539,200)},
+        },
 
-            "10":
-                predict_539_mean(
-                    history539,
-                    10
-                ),
+        "lotto649": {
+            "10": {"numbers": predict_lotto649_mean(history649,10),
+                   "heat": get_lotto649_heat(history649,10)},
+            "30": {"numbers": predict_lotto649_mean(history649,30),
+                   "heat": get_lotto649_heat(history649,30)},
+            "50": {"numbers": predict_lotto649_mean(history649,50),
+                   "heat": get_lotto649_heat(history649,50)},
+            "100": {"numbers": predict_lotto649_mean(history649,100),
+                   "heat": get_lotto649_heat(history649,100)},
+            "200": {"numbers": predict_lotto649_mean(history649,200),
+                   "heat": get_lotto649_heat(history649,200)},
+        },
 
-            "30":
-                predict_539_mean(
-                    history539,
-                    30
-                ),
+        "power": {
 
-            "50":
-                predict_539_mean(
-                    history539,
-                    50
-                ),
-
-            "100":
-                predict_539_mean(
-                    history539,
-                    100
-                ),
-
-            "200":
-                predict_539_mean(
-                    history539,
-                    200
-                )
-        }
+            "10": {"prediction": predict_power_mean(historyPower,10),
+                   "heat": get_power_heat(historyPower,10)},
+            "30": {"prediction": predict_power_mean(historyPower,30),
+                   "heat": get_power_heat(historyPower,30)},
+            "50": {"prediction": predict_power_mean(historyPower,50),
+                   "heat": get_power_heat(historyPower,50)},
+            "100": {"prediction": predict_power_mean(historyPower,100),
+                   "heat": get_power_heat(historyPower,100)},
+            "200": {"prediction": predict_power_mean(historyPower,200),
+                   "heat": get_power_heat(historyPower,200)}
+        
+}
 
     }
 
@@ -647,8 +880,9 @@ def main():
     create_word(data)
     create_json(data)
     create_prediction_json()
+    create_scratch_json()
     print("全部完成")
-    
 
+    
 if __name__ == "__main__":
     main()

@@ -29,13 +29,38 @@ h1{text-align:center;color:#1f2937;}
     text-decoration:none;
     padding:12px 24px;
     border-radius:10px;
-    margin:0 10px;
     font-size:18px;
     font-weight:bold;
 }
 
 .menu-btn:hover{
     background:#1d4ed8;
+}
+.ball-group{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.ball{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#dc2626;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+
+.special-ball{
+    background:#facc15;
+    color:black;
 }
 </style>
 </head>
@@ -46,6 +71,7 @@ h1{text-align:center;color:#1f2937;}
 <div class=
     <a href="index.html" class="menu-btn">🏠 首頁</a>
     <a href="prediction.html" class="menu-btn">🎯 號碼預測</a>
+    <a href="scratch.html"class="menu-btn">🎫 刮刮樂</a>
 </div>
 
 <div class="grid">
@@ -67,16 +93,17 @@ h1{text-align:center;color:#1f2937;}
 
 fetch('data.json?t='+Date.now())
 .then(r=>r.json())
-.then(data=>{
- document.getElementById('539_numbers').innerText=data['539']['numbers'];
+.then(data=>{let html539 = '';data['539']['numbers'].split(/\s+/).forEach(n=>{html539 += `<div class="ball">${n}</div>`;});
+document.getElementById('539_numbers').innerHTML =
+`<div class="ball-group">${html539}</div>`;
  document.getElementById('539_info').innerText='期別：'+data['539']['period']+' 日期：'+data['539']['date'];
- document.getElementById('power_numbers').innerHTML=data['power']['numbers']+'<br>第二區：'+data['power']['special'];
+ let htmlPower='';data['power']['numbers'].split(/\s+/).forEach(n=>{htmlPower+=`<div class="ball">${n}</div>`;});htmlPower+=`<div class="ball special-ball">${data['power']['special']}</div>`;document.getElementById('power_numbers').innerHTML=`<div class="ball-group">${htmlPower}</div>`;
  document.getElementById('power_special').innerText='期別：' + data['power']['period'] +' 日期：' + data['power']['date'];
- document.getElementById('lotto_numbers').innerHTML=data['lotto649']['numbers']+'<br>特別號：'+data['lotto649']['special'];
+ let html649='';data['lotto649']['numbers'].split(/\s+/).forEach(n=>{html649+=`<div class="ball">${n}</div>`;});html649+=`<div class="ball special-ball">${data['lotto649']['special']}</div>`;document.getElementById('lotto_numbers').innerHTML=`<div class="ball-group">${html649}</div>`;
  document.getElementById('lotto_special').innerText='期別：' + data['lotto649']['period'] +' 日期：' + data['lotto649']['date'];
- document.getElementById('3star_numbers').innerText=data['3star']['numbers'];
+ let html3='';data['3star']['numbers'].split(/\s+/).forEach(n=>{html3+=`<div class="ball">${n}</div>`;});document.getElementById('3star_numbers').innerHTML=`<div class="ball-group">${html3}</div>`;
  document.getElementById('3star_info').innerText=data['3star']['date'];
- document.getElementById('4star_numbers').innerText=data['4star']['numbers'];
+ let html4='';data['4star']['numbers'].split(/\s+/).forEach(n=>{html4+=`<div class="ball">${n}</div>`;});document.getElementById('4star_numbers').innerHTML=`<div class="ball-group">${html4}</div>`;
  document.getElementById('4star_info').innerText=data['4star']['date'];
  document.getElementById('update_time').innerText='最後更新：'+data['update_time'];
 })

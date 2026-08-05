@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎫 刮刮樂專區</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:20px;
+    background:#f5f7fa;
+    font-family:"Microsoft JhengHei",sans-serif;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+}
+
+.top-menu{
+    display:flex;
+    gap:5px;
+    margin:20px 0;
+    justify-content:flex-start;
+}
+
+
+.menu-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:10px;
+    
+}
+.scratch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.scratch-card{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.scratch-card img{
+    width:180px;
+    height:auto;
+    border-radius:10px;
+    transition:.2s;
+    cursor:pointer;
+}
+
+.scratch-card img:hover{
+    transform:scale(1.03);
+}
+
+.scratch-name{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.scratch-price{
+    color:#2563eb;
+    font-size:18px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.scratch-prize{
+    color:#dc2626;
+    margin-top:5px;
+}
+
+.scratch-odds{
+    color:#666;
+    margin-top:5px;
+}
+.scratch-date{
+color:#666;
+margin-top:5px;
+font-size:14px;
+}
+.active{
+background:#6b7280;
+cursor:default;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎫 刮刮樂</h1>
+    <div class=""
+    <a class="menu-btn active">🎫 刮刮樂</a>
+    <a href="index.html" class="menu-btn">🏠 首頁</a>
+    <a href="prediction.html" class="menu-btn">🎯 號碼預測</a>
+    
+</p>
+
+<div id="scratch-list" class="scratch-grid">
+載入中...
+
+</div>
+<script>
+
+fetch('scratch.json?t=' + Date.now())
+.then(r => r.json())
+.then(data => {
+
+    let html = '';
+
+    data.forEach(game => {
+
+        html += `
+        <div class="scratch-card">
+
+            <a href="scratch_detail.html?id=${game.id}" target="_blank">
+
+                <img src="${game.image}" alt="${game.name}">
+
+            </a>
+
+            <div class="scratch-name">
+                ${game.name}
+            </div>
+
+            <div class="scratch-price">
+                💰 售價：${game.price}元
+            </div>
+
+            <div class="scratch-prize">
+                🏆 頭獎：${Number(game.firstPrize).toLocaleString()}元
+            </div>
+
+            <div class="scratch-odds">
+                🎯 中獎率：${game.odds}%
+            </div>
+            <div class="scratch-date">
+                📅 上市：
+                ${game.listingDate}
+            </div>
+
+        </div>
+        `;
+    });
+
+    document.getElementById('scratch-list').innerHTML =
+        html;
+
+})
+.catch(() => {
+
+    document.getElementById('scratch-list').innerHTML =
+        '無法載入刮刮樂資料';
+
+});
+
+</script>
+</body>
+</html>
