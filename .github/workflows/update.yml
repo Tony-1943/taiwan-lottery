@@ -1,10 +1,14 @@
 name: Lottery Auto Update
 
 on:
+  schedule:
+    - cron: '0 18 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update:
@@ -24,3 +28,25 @@ jobs:
       - name: Run Program
         run: |
           python 539.py
+
+      - name: Commit Files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add .
+          git commit -m "Auto Update" || echo "No changes"
+
+      - name: Push Files
+        run: |
+          git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy Pages
+        uses: actions/deploy-pages@v4
