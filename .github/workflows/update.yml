@@ -8,7 +8,7 @@ on:
 
   workflow_dispatch:
 
-  # 使用 GitHub Desktop 推送時也會部署
+  # GitHub Desktop 推送時也執行
   push:
     branches:
       - main
@@ -31,7 +31,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # 1. 下載 main 分支
+      # 1. 下載專案
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
@@ -50,25 +50,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas requests openpyxl python-docx TaiwanLottery
 
-      # 4. 執行彩券更新程式
+      # 4. 只有排程或手動執行時才執行 Python
+      # GitHub Desktop 推送時不重跑 Python
       - name: Run Lottery Program
+        if: github.event_name != 'push'
         run: |
           python 539.py
 
-      # 5. 檢查程式是否真的更新檔案
+      # 5. 顯示真正修改的檔案
       - name: Check Updated Files
         run: |
           echo "===== Git 狀態 ====="
-          git status
+          git status --short
 
-          echo "===== 修改過的檔案 ====="
-          git diff --name-only
-
-          echo "===== JSON 檔案時間 ====="
+          echo "===== JSON 檔案 ====="
           find . -maxdepth 2 -name "*.json" -type f -exec ls -lh {} \;
 
-      # 6. 提交更新
+      # 6. 提交 Python 更新的資料
       - name: Commit Updated Files
+        if: github.event_name != 'push'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -76,33 +76,27 @@ jobs:
           git add .
 
           if git diff --cached --quiet; then
-            echo "沒有新資料，跳過提交"
+            echo "沒有新資料，不需要提交"
           else
             git commit -m "Auto Update Lottery Data"
-            git pull --rebase origin main
             git push origin main
           fi
 
-      # 7. 確認目前工作目錄是最新版本
-      - name: Refresh Latest Main
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
+      # 注意：這裡不要再使用 git reset --hard
+      # 因為 reset 可能把 Python 剛產生的檔案恢復掉
 
-          echo "===== 即將部署的版本 ====="
-          git log -1 --oneline
-
-      # 8. 設定 Pages
+      # 7. 設定 Pages
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      # 9. 上傳網站
+      # 8. 直接上傳目前工作目錄
+      # 此時裡面已經是 Python 更新後的資料
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: "."
 
-      # 10. 部署 Pages
+      # 9. 發布 Pages
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
