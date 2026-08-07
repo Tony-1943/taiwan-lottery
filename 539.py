@@ -195,7 +195,7 @@ def get_power_history(target=200):
 #539-----------------------------------
 def predict_539_mean(records, periods):
 
-    records = records[:periods]
+    records = records[:periods]    #perids 使用者選幾筆資料切片
 
     counter = Counter()
 
@@ -214,7 +214,7 @@ def predict_539_mean(records, periods):
     ]
 
     result = []
-
+    
     for zone in zones:
         nums = list(zone)
         avg = sum(counter.get(n, 0)for n in nums) / len(nums)
