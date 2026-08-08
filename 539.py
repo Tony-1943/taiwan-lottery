@@ -5,9 +5,11 @@ from openpyxl import load_workbook
 from TaiwanLottery import TaiwanLotteryCrawler
 from docx import Document
 from docx.shared import Pt
+from docx.oxml.ns import qn
 from datetime import datetime
 from collections import Counter
 from scratch_crawler import create_scratch_json
+from star_lottery import get_3star, get_4star
 # =====================================
 # 日期格式
 # =====================================
@@ -350,8 +352,8 @@ def get_data():
         "539": merge_game_data(crawler.daily_cash),
         "威力彩": merge_game_data(crawler.super_lotto),
         "大樂透": merge_game_data(crawler.lotto649),
-        "3星彩": merge_game_data(crawler.lotto3d),
-        "4星彩": merge_game_data(crawler.lotto4d)
+        "3星彩": get_3star(),
+        "4星彩": get_4star()
     }
 
     print("539:", len(data["539"]))
@@ -504,7 +506,16 @@ def resize_table_font(table):
 
                 for run in paragraph.runs:
 
-                    run.font.size = Pt(12)
+                    run.font.size = Pt(12.5)
+                    # 字體大小
+                    # 粗體
+                    run.font.bold = True
+
+                    # 英文、數字
+                    run.font.name = "Franklin Gothic Heavy"
+
+                    # 中文
+                    run._element.rPr.rFonts.set(qn("w:eastAsia"),"DFKai-SB")
 
 # =====================================
 # Word產生
