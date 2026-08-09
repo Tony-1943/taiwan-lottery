@@ -10,6 +10,7 @@ from datetime import datetime
 from collections import Counter
 from scratch_crawler import create_scratch_json
 from star_lottery import get_3star, get_4star
+from uptoPrize import get_uptoPrize
 # =====================================
 # 日期格式
 # =====================================
@@ -698,6 +699,7 @@ def get_power_heat(records, periods):
 # =====================================
 #顯示開獎資料
 def create_json(data):
+    jackpot = get_uptoPrize()           #頭獎資料
     if (
         not data["539"]
         or not data["威力彩"]
@@ -711,7 +713,8 @@ def create_json(data):
     result = {
 
         "update_time": str(pd.Timestamp.now()),
-
+        "lotto_jackpot": jackpot["lotto_jackpot"],
+        "power_jackpot": jackpot["power_jackpot"],
         "539": {
             "period": str(
                 data["539"][0]["期別"]

@@ -62,6 +62,34 @@ h1{text-align:center;color:#1f2937;}
     background:#facc15;
     color:black;
 }
+.jackpot-card{
+    text-align:center;
+    color:white;
+}
+
+.lotto-jackpot{
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+}
+
+.power-jackpot{
+    background:linear-gradient(135deg,#10b981,#34d399);
+}
+
+.jackpot-logo{
+    height:60px;
+    margin:10px 0;
+}
+
+.jackpot-money{
+    font-size:48px;
+    font-weight:bold;
+}
+#lotto_desc,
+#power_desc{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
 </style>
 </head>
 <body>
@@ -86,6 +114,56 @@ h1{text-align:center;color:#1f2937;}
 <p><a href="最新開獎紀錄.xlsx" class="btn" target="_blank" download>📊 Excel報表</a></p>
 <p><a href="最新開獎紀錄.docx" class="btn" target="_blank" download>📄 Word報表</a></p>
 </div>
+<!-- ===== 大樂透獎金 ===== -->
+
+<div class="card jackpot-card lotto-jackpot">
+
+    <img
+        src="images/lotto649.png"
+        alt="大樂透"
+        class="jackpot-logo"
+    >
+
+    <div id="lotto_desc">
+        保證
+    </div>
+
+    <div class="jackpot-money">
+
+        <span id="lotto_amount">
+            0
+        </span>億
+
+    </div>
+
+</div>
+
+
+<!-- ===== 威力彩獎金 ===== -->
+
+<div class="card jackpot-card power-jackpot">
+
+    <img
+        src="images/lotto.png"
+        alt="威力彩"
+        class="jackpot-logo"
+    >
+
+    <div id="power_desc">
+        上看
+    </div>
+
+    <div class="jackpot-money">
+
+        <span id="power_amount">
+            0
+        </span>億
+
+    </div>
+
+</div>
+
+
 </div>
 <div class="footer">Tony-1943 台灣彩券分析系統</div>
 </div>
@@ -105,6 +183,10 @@ document.getElementById('539_numbers').innerHTML =
  document.getElementById('3star_info').innerText=data['3star']['date'];
  let html4='';data['4star']['numbers'].split(/\s+/).forEach(n=>{html4+=`<div class="ball">${n}</div>`;});document.getElementById('4star_numbers').innerHTML=`<div class="ball-group">${html4}</div>`;
  document.getElementById('4star_info').innerText=data['4star']['date'];
+ document.getElementById('lotto_amount').innerText =data.lotto_jackpot.amount;
+ document.getElementById('lotto_desc').innerText =data.lotto_jackpot.desc;
+ document.getElementById('power_amount').innerText =data.power_jackpot.amount;
+ document.getElementById('power_desc').innerText =data.power_jackpot.desc;
  document.getElementById('update_time').innerText='最後更新：'+data['update_time'];
 })
 .catch(()=>{document.getElementById('update_time').innerText='讀取 data.json 失敗';});

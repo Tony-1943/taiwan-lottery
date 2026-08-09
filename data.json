@@ -1,5 +1,13 @@
 {
-    "update_time": "2026-08-08 18:15:53.539399",
+    "update_time": "2026-08-09 23:59:35.546514",
+    "lotto_jackpot": {
+        "amount": "1.0",
+        "desc": "保證"
+    },
+    "power_jackpot": {
+        "amount": "2.5",
+        "desc": "上看"
+    },
     "539": {
         "period": "115000192",
         "date": "115.08.08",
