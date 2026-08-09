@@ -90,6 +90,24 @@ h1{text-align:center;color:#1f2937;}
     font-weight:bold;
     margin-bottom:10px;
 }
+.jackpot-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+}
+
+#lotto_desc,
+#power_desc{
+    font-size:24px;
+    font-weight:bold;
+    margin:0;
+}
+
+.jackpot-money{
+    font-size:48px;
+    font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -118,16 +136,9 @@ h1{text-align:center;color:#1f2937;}
 
 <div class="card jackpot-card lotto-jackpot">
 
-    <img
-        src="images/lotto649.png"
-        alt="大樂透"
-        class="jackpot-logo"
-    >
-
-    <div id="lotto_desc">
-        保證
-    </div>
-
+    <img   src="images/lotto649.png"alt="大樂透"class="jackpot-logo">
+    <div class="jackpot-row">
+    <span id="lotto_desc">保證</span>
     <div class="jackpot-money">
 
         <span id="lotto_amount">
@@ -137,22 +148,14 @@ h1{text-align:center;color:#1f2937;}
     </div>
 
 </div>
-
-
+</div>
 <!-- ===== 威力彩獎金 ===== -->
 
 <div class="card jackpot-card power-jackpot">
 
-    <img
-        src="images/lotto.png"
-        alt="威力彩"
-        class="jackpot-logo"
-    >
-
-    <div id="power_desc">
-        上看
-    </div>
-
+    <img src="images/lotto.png"alt="威力彩"class="jackpot-logo">
+    <div class="jackpot-row">
+    <span id="power_desc">上看</span>
     <div class="jackpot-money">
 
         <span id="power_amount">
