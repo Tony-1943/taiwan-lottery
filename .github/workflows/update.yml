@@ -3,7 +3,7 @@ name: Lottery Auto Update and Deploy Pages
 on:
   schedule:
     # 每天台灣時間凌晨 1:51
-    - cron: "51 1 * * *"
+    - cron: "51 21 * * *"
       timezone: "Asia/Taipei"
 
   # 允許在 Actions 頁面手動執行
@@ -90,11 +90,11 @@ jobs:
 
       # 7. 排程或手動執行時，等待 10 分鐘
       # GitHub Desktop 推送時不等待
-      - name: Wait 10 Minutes Before Deployment
+      - name: Wait 1 Minutes Before Deployment
         if: github.event_name != 'push'
         run: |
-          echo "檔案更新完成，等待 10 分鐘後發布 GitHub Pages"
-          sleep 600
+          echo "檔案更新完成，等待 1 分鐘後發布 GitHub Pages"
+          sleep 60
 
       # 8. 設定 GitHub Pages
       - name: Configure GitHub Pages
