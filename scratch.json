@@ -238,25 +238,5 @@
         "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260313_175024366_1.jpg",
         "listingDate": "2026-03-19",
         "downDate": "2026-09-24"
-    },
-    {
-        "id": "e9bbf3ed6ec34abcb9a383d86813209a",
-        "name": "釣魚高手",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "33.01",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260304_152020314_1.jpg",
-        "listingDate": "2026-03-10",
-        "downDate": "2026-09-10"
-    },
-    {
-        "id": "f949fe535177433cab2bb54b702b6ad7",
-        "name": "無敵30倍",
-        "price": 300,
-        "firstPrize": 3000000,
-        "odds": "31.00",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260304_151809119_1.jpg",
-        "listingDate": "2026-03-10",
-        "downDate": "2026-09-10"
     }
 ]
