@@ -1,5 +1,6 @@
 import requests
-
+from datetime import datetime
+now = datetime.now()
 # =========================
 # 3星彩
 # =========================
@@ -8,8 +9,8 @@ def get_3star():
     url = "https://api.taiwanlottery.com/TLCAPIWeB/Lottery/3DResult"
 
     params = {
-        "month": "2026-06",
-        "endMonth": "2026-08",
+        "month": f"{now.year}-{now.month-2:02d}",
+        "endMonth": f"{now.year}-{now.month:02d}",
         "pageNum": 1,
         "pageSize": 200
     }
@@ -41,8 +42,8 @@ def get_4star():
     url = "https://api.taiwanlottery.com/TLCAPIWeB/Lottery/4DResult"
 
     params = {
-        "month": "2026-06",
-        "endMonth": "2026-08",
+        "month": f"{now.year}-{now.month-2:02d}",
+        "endMonth": f"{now.year}-{now.month:02d}",
         "pageNum": 1,
         "pageSize": 200
     }
