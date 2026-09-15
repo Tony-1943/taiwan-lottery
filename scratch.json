@@ -1,5 +1,25 @@
 [
     {
+        "id": "8e3bcdc59b2b420db230b76890a81bfe",
+        "name": "金磚疊疊樂",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "35.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260909_143422240_1.jpg",
+        "listingDate": "2026-09-15",
+        "downDate": "2027-03-15"
+    },
+    {
+        "id": "a8bf234dd0654b8d8ddd69cd8fe18b71",
+        "name": "獎金大作戰",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "33.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260909_143218755_1.jpg",
+        "listingDate": "2026-09-15",
+        "downDate": "2027-03-15"
+    },
+    {
         "id": "5551ee394c3342cba556f25a4577f13c",
         "name": "好運樂加倍",
         "price": 200,
