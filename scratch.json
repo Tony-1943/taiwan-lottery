@@ -1,5 +1,25 @@
 [
     {
+        "id": "e8b6f587406c4ed9a35bb90f70d8de8f",
+        "name": "喜從天降",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "30.40",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260924_155920615_1.jpg",
+        "listingDate": "2026-10-05",
+        "downDate": "2027-04-07"
+    },
+    {
+        "id": "9a804d7aaa4348db872aa84755487ff4",
+        "name": "10來添金",
+        "price": 500,
+        "firstPrize": 5000000,
+        "odds": "41.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260924_155651751_1.jpg",
+        "listingDate": "2026-10-05",
+        "downDate": "2027-04-07"
+    },
+    {
         "id": "8e3bcdc59b2b420db230b76890a81bfe",
         "name": "金磚疊疊樂",
         "price": 200,
