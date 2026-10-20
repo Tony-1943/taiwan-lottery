@@ -1,5 +1,25 @@
 [
     {
+        "id": "9eace25a8f3d40b082f87700be223722",
+        "name": "金骰子",
+        "price": 100,
+        "firstPrize": 500000,
+        "odds": "34.02",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20261013_164538284_1.jpg",
+        "listingDate": "2026-10-20",
+        "downDate": "2027-04-20"
+    },
+    {
+        "id": "fbedb971c22e4383b547aba803d8e91b",
+        "name": "好運強強滾",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "35.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20261013_164327300_1.jpg",
+        "listingDate": "2026-10-20",
+        "downDate": "2027-04-20"
+    },
+    {
         "id": "e8b6f587406c4ed9a35bb90f70d8de8f",
         "name": "喜從天降",
         "price": 200,
