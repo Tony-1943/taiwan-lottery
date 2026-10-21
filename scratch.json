@@ -238,25 +238,5 @@
         "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260428_093601785_1.jpg",
         "listingDate": "2026-05-05",
         "downDate": "2026-11-05"
-    },
-    {
-        "id": "3a86b2ae52454e7db19c9e01b790b307",
-        "name": "一觸即發",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "34.00",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_143828610_1.jpg",
-        "listingDate": "2026-04-07",
-        "downDate": "2026-10-21"
-    },
-    {
-        "id": "04a455541d7748199c1f4d8971526a87",
-        "name": "獎金獵人",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "30.10",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260330_143540043_1.jpg",
-        "listingDate": "2026-04-07",
-        "downDate": "2026-10-21"
     }
 ]
