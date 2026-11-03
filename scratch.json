@@ -1,5 +1,25 @@
 [
     {
+        "id": "26ffeb28fd73460d81b982642cf78672",
+        "name": "猜拳高手",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "31.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20261028_154430902_1.jpg",
+        "listingDate": "2026-11-03",
+        "downDate": "2027-05-03"
+    },
+    {
+        "id": "61dab1ef7ea14de0a6eba5aec0e7bb32",
+        "name": "獎金射手",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "34.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20261028_154238590_1.jpg",
+        "listingDate": "2026-11-03",
+        "downDate": "2027-05-03"
+    },
+    {
         "id": "9eace25a8f3d40b082f87700be223722",
         "name": "金骰子",
         "price": 100,
