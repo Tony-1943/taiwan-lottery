@@ -238,25 +238,5 @@
         "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260513_095311624_1.jpg",
         "listingDate": "2026-05-19",
         "downDate": "2026-11-19"
-    },
-    {
-        "id": "692c7e517d60422c8c104d2e83cfcff2",
-        "name": "金鑽999",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "27.55",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260428_094141520_1.jpg",
-        "listingDate": "2026-05-05",
-        "downDate": "2026-11-05"
-    },
-    {
-        "id": "06172030aee3447baaf40691f61bc1f9",
-        "name": "麻將大賓果",
-        "price": 300,
-        "firstPrize": 3000000,
-        "odds": "36.00",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260428_093601785_1.jpg",
-        "listingDate": "2026-05-05",
-        "downDate": "2026-11-05"
     }
 ]
