@@ -1,5 +1,15 @@
 [
     {
+        "id": "04829469e2554e71b2f9e3951d221925",
+        "name": "金鑽派對",
+        "price": 200,
+        "firstPrize": 2000000,
+        "odds": "33.00",
+        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20261111_101749761_1.jpg",
+        "listingDate": "2026-11-17",
+        "downDate": "2027-05-17"
+    },
+    {
         "id": "26ffeb28fd73460d81b982642cf78672",
         "name": "猜拳高手",
         "price": 200,
