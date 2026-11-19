@@ -228,25 +228,5 @@
         "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260527_160952539_1.jpg",
         "listingDate": "2026-06-02",
         "downDate": "2026-12-02"
-    },
-    {
-        "id": "eef04c61e8a4446c9ebddf43a205db92",
-        "name": "點球成金",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "32.00",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260513_095553754_1.jpg",
-        "listingDate": "2026-05-19",
-        "downDate": "2026-11-19"
-    },
-    {
-        "id": "8c5865c764424927bdfe068a0eb55f60",
-        "name": "獎金倍倍樂",
-        "price": 200,
-        "firstPrize": 2000000,
-        "odds": "31.00",
-        "image": "https://cdn.taiwanlottery.com.tw/app/Images/Scratch/20260513_095311624_1.jpg",
-        "listingDate": "2026-05-19",
-        "downDate": "2026-11-19"
     }
 ]
